@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reservas - Quinta do Ypuá</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Estilo personalizado -->
+
+</head>
+<body>
+
+  <!-- Navbar estilizada -->
+  <nav class="navbar navbar-expand-lg custom-navbar px-3">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="index.html">Pousada Quinta do Ypuá</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 align-items-center gap-2">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">🏠 Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="reservas.html">📅 Reservas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="status.html">🛏️ Status</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-outline-light btn-sm" href="index.html">Sair</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Conteúdo principal -->
+  <main class="container">
+
+    <div class="d-flex">
+      <div>
+        <h1 class="mb-1">Gerenciador de Tarefas</h1>
+        <small class="text-muted">Visualize, filtre e gerencie as reservas da pousada</small>
+      </div>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddReserva">
+        + Nova Reserva
+      </button>
+    </div>
+
+    <!-- Filtros -->
+    <div class="row mb-4">
+      <div class="col-md-4 mb-2">
+        <input type="text" id="filtroNome" class="form-control" placeholder="Buscar por nome do hóspede" />
+      </div>
+      <div class="col-md-3 mb-2">
+        <select id="filtroStatus" class="form-select">
+          <option value="">Todos os Status</option>
+          <option value="Reservado">Reservado</option>
+          <option value="Hospedado">Hospedado</option>
+          <option value="Check-out">Check-out</option>
+          <option value="Cancelado">Cancelado</option>
+        </select>
+      </div>
+      <div class="col-md-2 mb-2">
+        <button class="btn btn-secondary w-100" id="btnLimparFiltros">Limpar Filtros</button>
+      </div>
+    </div>
+
+    <!-- Tabela de Reservas -->
+    <div class="table-responsive">
+      <table class="table table-hover text-white mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Quarto</th>
+            <th>Hóspede</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+            <th>Status</th>
+            <th class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody id="reservasTableBody">
+          <!-- Reservas serão inseridas dinamicamente aqui -->
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- Modal para adicionar nova reserva -->
+  <div class="modal fade" id="modalAddReserva" tabindex="-1" aria-labelledby="modalAddReservaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="formAddReserva" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalAddReservaLabel">Adicionar Nova Reserva</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="inputQuarto" class="form-label">Número do Quarto</label>
+            <input type="number" class="form-control" id="inputQuarto" required min="1" />
+          </div>
+          <div class="mb-3">
+            <label for="inputHospede" class="form-label">Nome do Hóspede</label>
+            <input type="text" class="form-control" id="inputHospede" required />
+          </div>
+          <div class="mb-3">
+            <label for="inputCheckin" class="form-label">Data de Check-in</label>
+            <input type="date" class="form-control" id="inputCheckin" required />
+          </div>
+          <div class="mb-3">
+            <label for="inputCheckout" class="form-label">Data de Check-out</label>
+            <input type="date" class="form-control" id="inputCheckout" required />
+          </div>
+          <div class="mb-3">
+            <label for="selectStatus" class="form-label">Status</label>
+            <select id="selectStatus" class="form-select" required>
+              <option value="Reservado">Reservado</option>
+              <option value="Hospedado">Hospedado</option>
+              <option value="Check-out">Check-out</option>
+              <option value="Cancelado">Cancelado</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar Reserva</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <footer>
+    &copy; 2025 Pousada Quinta do Ypuá. Todos os direitos reservados.
+  </footer>
+
+  <!-- Scripts Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Script funcionalidade simples -->
+  <script>
+    const reservas = [
+      {
+        quarto: 101,
+        hospede: "Maria Silva",
+        checkin: "2025-07-10",
+        checkout: "2025-07-15",
+        status: "Reservado"
+      },
+      {
+        quarto: 202,
+        hospede: "João Santos",
+        checkin: "2025-07-05",
+        checkout: "2025-07-12",
+        status: "Hospedado"
+      },
+      {
+        quarto: 305,
+        hospede: "Ana Paula",
+        checkin: "2025-07-01",
+        checkout: "2025-07-03",
+        status: "Check-out"
+      }
+    ];
+
+    const tbody = document.getElementById("reservasTableBody");
+    const filtroNome = document.getElementById("filtroNome");
+    const filtroStatus = document.getElementById("filtroStatus");
+    const btnLimparFiltros = document.getElementById("btnLimparFiltros");
+    const formAddReserva = document.getElementById("formAddReserva");
+    const modalAddReserva = new bootstrap.Modal(document.getElementById('modalAddReserva'));
+
+    // Função para renderizar a tabela com base nos filtros
+    function renderTabela() {
+      const nomeFiltro = filtroNome.value.toLowerCase();
+      const statusFiltro = filtroStatus.value;
+
+      tbody.innerHTML = "";
+
+      const filtradas = reservas.filter(r => {
+        const nomeMatch = r.hospede.toLowerCase().includes(nomeFiltro);
+        const statusMatch = statusFiltro === "" || r.status === statusFiltro;
+        return nomeMatch && statusMatch;
+      });
+
+      if (filtradas.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center text-white-50">Nenhuma reserva encontrada.</td></tr>`;
+        return;
+      }
+
+      filtradas.forEach((reserva, idx) => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+          <td>${reserva.quarto}</td>
+          <td>${reserva.hospede}</td>
+          <td>${new Date(reserva.checkin).toLocaleDateString("pt-BR")}</td>
+          <td>${new Date(reserva.checkout).toLocaleDateString("pt-BR")}</td>
+          <td>${reserva.status}</td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-warning me-1" onclick="editarReserva(${idx})" title="Editar">✏️</button>
+            <button class="btn btn-sm btn-danger" onclick="removerReserva(${idx})" title="Remover">🗑️</button>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Limpar filtros
+    btnLimparFiltros.addEventListener("click", () => {
+      filtroNome.value = "";
+      filtroStatus.value = "";
+      renderTabela();
+    });
+
+    // Filtros ao digitar ou selecionar
+    filtroNome.addEventListener("input", renderTabela);
+    filtroStatus.addEventListener("change", renderTabela);
+
+    // Adicionar nova reserva
+    formAddReserva.addEventListener("submit", e => {
+      e.preventDefault();
+
+      const novaReserva = {
+        quarto: Number(document.getElementById("inputQuarto").value),
+        hospede: document.getElementById("inputHospede").value.trim(),
+        checkin: document.getElementById("inputCheckin").value,
+        checkout: document.getElementById("inputCheckout").value,
+        status: document.getElementById("selectStatus").value
+      };
+
+      // Validação básica: check-out maior que check-in
+      if (new Date(novaReserva.checkout) <= new Date(novaReserva.checkin)) {
+        alert("Data de check-out deve ser maior que a de check-in.");
+        return;
+      }
+
+      reservas.push(novaReserva);
+      renderTabela();
+
+      // Resetar e fechar modal
+      formAddReserva.reset();
+      modalAddReserva.hide();
+    });
+
+    // Remover reserva
+    function removerReserva(idx) {
+      if (confirm("Deseja realmente remover esta reserva?")) {
+        reservas.splice(idx, 1);
+        renderTabela();
+      }
+    }
+
+    // Editar reserva simples (preenche modal para editar)
+    function editarReserva(idx) {
+      const reserva = reservas[idx];
+
+      document.getElementById("inputQuarto").value = reserva.quarto;
+      document.getElementById("inputHospede").value = reserva.hospede;
+      document.getElementById("inputCheckin").value = reserva.checkin;
+      document.getElementById("inputCheckout").value = reserva.checkout;
+      document.getElementById("selectStatus").value = reserva.status;
+
+      modalAddReserva.show();
+
+      // Remover listener anterior para evitar múltiplos handlers
+      formAddReserva.removeEventListener("submit", formSubmitHandler);
+
+      // Novo handler para editar reserva
+      function formSubmitHandler(e) {
+        e.preventDefault();
+
+        // Atualiza reserva
+        reservas[idx] = {
+          quarto: Number(document.getElementById("inputQuarto").value),
+          hospede: document.getElementById("inputHospede").value.trim(),
+          checkin: document.getElementById("inputCheckin").value,
+          checkout: document.getElementById("inputCheckout").value,
+          status: document.getElementById("selectStatus").value
+        };
+
+        if (new Date(reservas[idx].checkout) <= new Date(reservas[idx].checkin)) {
+          alert("Data de check-out deve ser maior que a de check-in.");
+          return;
+        }
+
+        renderTabela();
+        formAddReserva.reset();
+        modalAddReserva.hide();
+
+        // Remove este listener para evitar múltiplas execuções
+        formAddReserva.removeEventListener("submit", formSubmitHandler);
+      }
+
+      formAddReserva.addEventListener("submit", formSubmitHandler);
+    }
+
+    // Renderiza a tabela ao carregar a página
+    renderTabela();
+  </script>
+</body>
+</html>

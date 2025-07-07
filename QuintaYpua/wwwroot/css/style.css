@@ -1,0 +1,125 @@
+/* Reset e base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #002b4e;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Navbar personalizada com gradiente */
+.custom-navbar {
+  background: linear-gradient(90deg, #001f33 0%, #004b74 100%);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.custom-navbar .navbar-brand {
+  font-size: 1.5rem;
+  color: #ffffff !important;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.custom-navbar .navbar-brand:hover {
+  color: #66ccff !important;
+}
+
+.custom-navbar .nav-link {
+  color: #ffffff !important;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: background 0.3s, color 0.3s;
+  border-radius: 8px;
+}
+
+.custom-navbar .nav-link:hover,
+.custom-navbar .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #66ccff !important;
+}
+
+.custom-navbar .btn-outline-light {
+  border: 1px solid #ffffff;
+  padding: 6px 16px;
+  font-weight: bold;
+  transition: 0.3s;
+  border-radius: 25px;
+}
+
+.custom-navbar .btn-outline-light:hover {
+  background-color: #ffffff;
+  color: #003f6b;
+}
+
+/* Ajusta main para usar mais largura e ficar colado ao topo */
+main.container {
+  margin-top: 1rem !important;
+  max-width: 100% !important;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  flex: 1 0 auto;
+}
+
+/* Ajusta o container flex do título para espaçamento maior */
+main > div.d-flex {
+  margin-bottom: 1.5rem !important;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Expande a tabela para usar largura máxima e adiciona scroll horizontal se necessário */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  border-radius: 8px;
+  background-color: #003f6b;
+}
+
+/* Ajusta largura mínima da tabela para expandir */
+table.table {
+  min-width: 900px; /* garante que a tabela tenha largura mínima para ficar legível */
+}
+
+/* Cabeçalho tabela */
+thead.table-light {
+  background-color: #cfd8dc !important;
+  color: #003f6b !important;
+}
+
+/* Linhas da tabela */
+tbody tr:hover {
+  background-color: rgba(102, 204, 255, 0.15);
+}
+
+/* Rodapé */
+footer {
+  background-color: #001f33;
+  color: #ccc;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+/* Responsividade para navbar e main */
+@media (max-width: 768px) {
+  main > div.d-flex {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .custom-navbar .nav-link {
+    padding: 0.25rem 0.5rem;
+  }
+}
