@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login - Quinta do Ypuá</title>
 
   <!-- Bootstrap CSS -->
@@ -14,48 +14,47 @@
 
   <!-- Navbar estilizada -->
   <nav class="navbar navbar-expand-lg custom-navbar px-3">
-  <div class="container-fluid">
-    <a class="navbar-brand fw-bold" href="index.html">Pousada Quinta do Ypuá</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="index.html">Pousada Quinta do Ypuá</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
-      <ul class="navbar-nav mb-2 mb-lg-0 align-items-center gap-2">
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">🏠 Início</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="reservas.html">📅 Reservas</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="status.html">🛏️ Status</a>
-        </li>
-        <li class="nav-item">
-          <a class="btn btn-outline-light btn-sm" href="index.html">Sair</a>
-        </li>
-      </ul>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 align-items-center gap-3">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">🏠 Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reservas.html">📅 Reservas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="status.html">🛏️ Status</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-outline-light btn-sm" href="index.html">Sair</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
-
+  </nav>
 
   <!-- Conteúdo principal -->
-  <main>
-    <div class="login-box">
-      <img src="img/quinta-removebg-preview.png" alt="Logo da Pousada" class="logo" />
-      <h2>Bem-vindo</h2>
-      <p class="subtitle">Acesse o painel administrativo</p>
-      <form id="loginForm">
-        <input type="text" id="login" class="form-control" placeholder="Usuário" required />
-        <input type="password" id="senha" class="form-control" placeholder="Senha" required />
-        <button type="submit" class="btn btn-primary">Entrar</button>
+  <main class="d-flex justify-content-center align-items-center flex-grow-1 bg-login-gradient">
+    <div class="login-box p-4 p-md-5 rounded-4 shadow-lg text-center">
+      <img src="img/quinta-removebg-preview.png" alt="Logo da Pousada" class="logo mb-4 mx-auto" style="max-width: 130px;" />
+      <h2 class="mb-2 fw-bold text-primary">Bem-vindo</h2>
+      <p class="subtitle mb-4 text-light fs-6">Acesse o painel administrativo</p>
+      <form id="loginForm" class="mx-auto" style="max-width: 320px;">
+        <input type="text" id="login" class="form-control mb-3" placeholder="Usuário" required autofocus />
+        <input type="password" id="senha" class="form-control mb-4" placeholder="Senha" required />
+        <button type="submit" class="btn btn-primary w-100 fw-semibold py-2 fs-5">Entrar</button>
       </form>
     </div>
   </main>
 
   <!-- Rodapé -->
-  <footer>
+  <footer class="text-center text-light py-3" style="background-color: #001f33;">
     &copy; 2025 Pousada Quinta do Ypuá. Todos os direitos reservados.
   </footer>
 
@@ -68,7 +67,7 @@
       const senha = document.getElementById('senha').value.trim();
 
       if (login === 'admin' && senha === '123') {
-        window.location.href = 'home.html';
+        window.location.href = 'reservas.html';
       } else {
         alert('Login inválido. Tente novamente.');
       }

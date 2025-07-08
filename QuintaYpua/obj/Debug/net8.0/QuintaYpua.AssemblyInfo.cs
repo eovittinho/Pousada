@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QuintaYpua")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c3591d547f99ffd000ff20ba7e759a315efcaaf9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8efe4acdc7e1a01562104aac6505a1326a777bb8")]
 [assembly: System.Reflection.AssemblyProductAttribute("QuintaYpua")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QuintaYpua")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

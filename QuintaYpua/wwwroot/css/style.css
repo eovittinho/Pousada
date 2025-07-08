@@ -1,4 +1,4 @@
-/* Reset e base */
+/* RESET E BASE */
 * {
   margin: 0;
   padding: 0;
@@ -9,12 +9,12 @@ body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #002b4e;
   color: white;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
-/* Navbar personalizada com gradiente */
+/* NAVBAR */
 .custom-navbar {
   background: linear-gradient(90deg, #001f33 0%, #004b74 100%);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
@@ -54,54 +54,12 @@ body {
 }
 
 .custom-navbar .btn-outline-light:hover {
-  background-color: #ffffff;
-  color: #003f6b;
-}
-
-/* Ajusta main para usar mais largura e ficar colado ao topo */
-main.container {
-  margin-top: 1rem !important;
-  max-width: 100% !important;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  flex: 1 0 auto;
-}
-
-/* Ajusta o container flex do título para espaçamento maior */
-main > div.d-flex {
-  margin-bottom: 1.5rem !important;
-  gap: 1rem;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* Expande a tabela para usar largura máxima e adiciona scroll horizontal se necessário */
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  border-radius: 8px;
   background-color: #003f6b;
+  color: #003f6b;
+  background: #ffffff;
 }
 
-/* Ajusta largura mínima da tabela para expandir */
-table.table {
-  min-width: 900px; /* garante que a tabela tenha largura mínima para ficar legível */
-}
-
-/* Cabeçalho tabela */
-thead.table-light {
-  background-color: #cfd8dc !important;
-  color: #003f6b !important;
-}
-
-/* Linhas da tabela */
-tbody tr:hover {
-  background-color: rgba(102, 204, 255, 0.15);
-}
-
-/* Rodapé */
+/* RODAPÉ */
 footer {
   background-color: #001f33;
   color: #ccc;
@@ -111,15 +69,185 @@ footer {
   flex-shrink: 0;
 }
 
-/* Responsividade para navbar e main */
-@media (max-width: 768px) {
-  main > div.d-flex {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-  }
+/* === LOGIN === */
+.bg-login-gradient {
+  background: linear-gradient(135deg, #003f6b 0%);
+  min-height: calc(100vh - 56px - 48px); /* Altura total menos navbar e footer */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
 
-  .custom-navbar .nav-link {
-    padding: 0.25rem 0.5rem;
-  }
+.login-box {
+  background-color: #012a4a; /* Azul petróleo escuro */
+  padding: 2.5rem 3rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  max-width: 360px;
+  width: 100%;
+  color: #e1eaff;
+  text-align: center;
+}
+
+.login-box .logo {
+  margin-bottom: 1.5rem;
+  max-width: 130px;
+  filter: none;
+}
+
+.login-box h2 {
+  color: #5bc0f8; /* Azul claro */
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.login-box .subtitle {
+  color: #a9c7f7;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.login-box input.form-control {
+  background-color: #034078; /* Azul médio */
+  border: 1px solid #0563af; /* borda suave azul */
+  color: #d6e9ff;
+  padding: 0.6rem 1rem;
+  border-radius: 0.6rem;
+  margin-bottom: 1.25rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.login-box input.form-control::placeholder {
+  color: #b0c7ff;
+}
+
+.login-box input.form-control:focus {
+  background-color: #0563af; /* Azul mais claro */
+  border-color: #2a9df4;
+  color: #fff;
+  outline: none;
+  box-shadow: 0 0 8px #2a9df4;
+}
+
+.login-box button.btn-primary {
+  background-color: #2a9df4; /* azul claro vibrante */
+  border: none;
+  font-weight: 600;
+  font-size: 1.15rem;
+  padding: 0.6rem 0;
+  border-radius: 0.8rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  color: #012a4a; /* texto escuro para contraste */
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(42, 157, 244, 0.5);
+}
+
+.login-box button.btn-primary:hover {
+  background-color: #1c7ed6; /* azul forte no hover */
+  color: #d0e8ff;
+  box-shadow: 0 6px 14px rgba(28, 126, 214, 0.7);
+}
+
+
+/* === RESERVAS === */
+main.container-fluid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2rem;
+  background-color: transparent;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* filtros */
+.filtros input,
+.filtros select {
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+/* container da tabela */
+.table-container {
+  background-color: #003f6b;
+  border-radius: 15px;
+  padding: 1rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  flex-grow: 1;
+  overflow-x: auto;
+}
+
+.table thead th {
+  background: linear-gradient(90deg, #001f33 0%, #004b74 100%);
+  color: #ffffff;
+  text-align: center;
+  font-size: 1.05rem;
+  white-space: nowrap;
+}
+
+.table tbody td {
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* badges */
+.badge {
+  font-size: 0.85rem;
+  padding: 0.4em 0.8em;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.badge.bg-success {
+  background-color: #28a745 !important;
+}
+
+.badge.bg-warning {
+  background-color: #ffc107 !important;
+  color: #212529 !important;
+}
+
+.badge.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+.badge.bg-primary {
+  background-color: #007bff !important;
+}
+
+/* botões */
+.btn-light {
+  background-color: #66ccff;
+  color: #003f6b;
+  font-weight: 600;
+  border: none;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+  padding: 0.3rem 1rem;
+  font-size: 0.9rem;
+}
+
+.btn-light:hover {
+  background-color: #004b74;
+  color: white;
 }
