@@ -72,7 +72,7 @@ footer {
 /* === LOGIN === */
 .bg-login-gradient {
   background: linear-gradient(135deg, #003f6b 0%);
-  min-height: calc(100vh - 56px - 48px); /* Altura total menos navbar e footer */
+  min-height: calc(100vh - 56px - 48px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,7 +80,7 @@ footer {
 }
 
 .login-box {
-  background-color: #012a4a; /* Azul petróleo escuro */
+  background-color: #012a4a;
   padding: 2.5rem 3rem;
   border-radius: 1rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
@@ -97,7 +97,7 @@ footer {
 }
 
 .login-box h2 {
-  color: #5bc0f8; /* Azul claro */
+  color: #5bc0f8;
   margin-bottom: 0.5rem;
   font-weight: 700;
 }
@@ -109,8 +109,8 @@ footer {
 }
 
 .login-box input.form-control {
-  background-color: #034078; /* Azul médio */
-  border: 1px solid #0563af; /* borda suave azul */
+  background-color: #034078;
+  border: 1px solid #0563af;
   color: #d6e9ff;
   padding: 0.6rem 1rem;
   border-radius: 0.6rem;
@@ -123,7 +123,7 @@ footer {
 }
 
 .login-box input.form-control:focus {
-  background-color: #0563af; /* Azul mais claro */
+  background-color: #0563af;
   border-color: #2a9df4;
   color: #fff;
   outline: none;
@@ -131,24 +131,23 @@ footer {
 }
 
 .login-box button.btn-primary {
-  background-color: #2a9df4; /* azul claro vibrante */
+  background-color: #2a9df4;
   border: none;
   font-weight: 600;
   font-size: 1.15rem;
   padding: 0.6rem 0;
   border-radius: 0.8rem;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  color: #012a4a; /* texto escuro para contraste */
+  color: #012a4a;
   width: 100%;
   box-shadow: 0 4px 10px rgba(42, 157, 244, 0.5);
 }
 
 .login-box button.btn-primary:hover {
-  background-color: #1c7ed6; /* azul forte no hover */
+  background-color: #1c7ed6;
   color: #d0e8ff;
   box-shadow: 0 6px 14px rgba(28, 126, 214, 0.7);
 }
-
 
 /* === RESERVAS === */
 main.container-fluid {
@@ -177,9 +176,13 @@ h1 {
   border: none;
   outline: none;
   width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   font-size: 1rem;
+  background-color: #034078;
+  color: #fff;
+}
+
+.filtros input::placeholder {
+  color: #b8d7ff;
 }
 
 /* container da tabela */
@@ -250,4 +253,41 @@ h1 {
 .btn-light:hover {
   background-color: #004b74;
   color: white;
+}
+
+/* === MODAIS === */
+.modal-content {
+  border-radius: 12px;
+  border: none;
+}
+
+.modal-header {
+  background-color: #012a4a;
+  border-bottom: 1px solid #00567d;
+}
+
+.modal-body {
+  background-color: #002b4e;
+}
+
+.modal-footer {
+  background-color: #012a4a;
+  border-top: 1px solid #00567d;
+}
+
+.list-group-item {
+  background-color: #002b4e;
+  color: #fff;
+  border: 1px solid #014a74;
+}
+
+/* responsividade */
+@media (max-width: 576px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .login-box {
+    padding: 2rem;
+  }
 }
