@@ -4,14 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gerenciador de Reservas - Quinta do Ypuá</title>
-
-  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg custom-navbar px-3">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold" href="index.html">Pousada Quinta do Ypuá</a>
@@ -41,8 +38,6 @@
       </div>
     </div>
   </nav>
-
-  <!-- Conteúdo -->
   <main class="container-fluid px-4 pt-4 pb-2 flex-grow-1">
     <h1 class="text-center">Gerenciador de Reservas</h1>
 
@@ -50,14 +45,11 @@
       <div class="col-md-4 mb-2">
         <input type="text" id="filtroNome" class="form-control" placeholder="🔍 Buscar por nome ou quarto" />
       </div>
-      <div class="col-md-3 mb-2">
-        <select id="filtroStatus" class="form-select">
-          <option value="">🔽 Filtrar por status</option>
-          <option value="Confirmado">✅ Confirmado</option>
-          <option value="Pré-Reserva">🕒 Pré-Reserva</option>
-          <option value="Cancelado">❌ Cancelado</option>
-          <option value="Hospedado">🛏️ Hospedado</option>
-        </select>
+      <div class="col-md-4 mb-2">
+        <input type="date" id="filtroCheckin" class="form-control" placeholder="Filtrar por Check-in" />
+      </div>
+      <div class="col-md-4 mb-2">
+        <button class="btn btn-outline-secondary w-100" onclick="window.print()">Imprimir Página</button>
       </div>
     </div>
 
@@ -71,717 +63,166 @@
               <th>Quarto</th>
               <th>Check-in</th>
               <th>Check-out</th>
-              <th>Status</th>
-              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
-            <!-- Exemplo para Maria Silva (1001) -->
-<tr>
-  <td>1001</td>
-  <td>
-    Maria Silva
-    <button class="btn btn-sm btn-link p-0 ms-2 align-baseline" data-bs-toggle="modal" data-bs-target="#editar1001" title="Editar">
-      <i class="bi bi-pencil-square"></i>
-    </button>
-  </td>
-  <td>101</td>
-  <td>2025-07-10</td>
-  <td>2025-07-15</td>
-  <td><span class="badge bg-success">Confirmado</span></td>
-  <td>
-    <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#detalhes1001">Detalhes</button>
-  </td>
-</tr>
-
-<!-- Modal de edição para Maria Silva -->
-<div class="modal fade" id="editar1001" tabindex="-1" aria-labelledby="editarLabel1001" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content bg-dark text-light">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editarLabel1001">Editar Reserva #1001</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <form id="formEditar1001">
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">Nome</label>
-            <input type="text" class="form-control" id="editNome1001" value="Maria Silva" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Quarto</label>
-            <input type="text" class="form-control" id="editQuarto1001" value="101" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Check-in</label>
-            <input type="date" class="form-control" id="editCheckin1001" value="2025-07-10" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Check-out</label>
-            <input type="date" class="form-control" id="editCheckout1001" value="2025-07-15" required>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-success">Salvar Alterações</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
+            <tr>
+              <td>1001</td>
+              <td>Maria Silva</td>
+              <td>101</td>
+              <td>2025-07-10</td>
+              <td>2025-07-15</td>
+            </tr>
             <tr>
               <td>1002</td>
-              <td>
-                João Pereira
-                <button class="btn btn-sm btn-link p-0 ms-2 align-baseline" data-bs-toggle="modal" data-bs-target="#editar1002" title="Editar">
-                  <i class="bi bi-pencil-square"></i>
-                </button>
-              </td>
+              <td>João Pereira</td>
               <td>202</td>
               <td>2025-07-12</td>
               <td>2025-07-14</td>
-              <td><span class="badge bg-warning text-dark">Pré-Reserva</span></td>
-              <td>
-                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#detalhes1002">Detalhes</button>
-              </td>
             </tr>
-
-            <!-- Modal de edição para João Pereira -->
-            <div class="modal fade" id="editar1002" tabindex="-1" aria-labelledby="editarLabel1002" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content bg-dark text-light">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="editarLabel1002">Editar Reserva #1002</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                  </div>
-                  <form id="formEditar1002">
-                    <div class="modal-body">
-                      <div class="mb-3">
-                        <label class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="editNome1002" value="João Pereira" required>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">Quarto</label>
-                        <input type="text" class="form-control" id="editQuarto1002" value="202" required>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">Check-in</label>
-                        <input type="date" class="form-control" id="editCheckin1002" value="2025-07-12" required>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">Check-out</label>
-                        <input type="date" class="form-control" id="editCheckout1002" value="2025-07-14" required>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
-                      <button type="submit" class="btn btn-success">Salvar Alterações</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
             <tr>
               <td>1003</td>
-              <td>
-                Ana Costa
-                <button class="btn btn-sm btn-link p-0 ms-2 align-baseline" data-bs-toggle="modal" data-bs-target="#editar1003" title="Editar">
-                  <i class="bi bi-pencil-square"></i>
-                </button>
-              </td>
+              <td>Ana Costa</td>
               <td>303</td>
               <td>2025-07-08</td>
               <td>2025-07-11</td>
-              <td><span class="badge bg-danger">Cancelado</span></td>
-              <td>
-                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#detalhes1003">Detalhes</button>
-              </td>
             </tr>
-            <!-- Modal de edição para Ana Costa -->
-<div class="modal fade" id="editar1003" tabindex="-1" aria-labelledby="editarLabel1003" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content bg-dark text-light">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editarLabel1003">Editar Reserva #1003</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <form id="formEditar1003">
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">Nome</label>
-            <input type="text" class="form-control" id="editNome1003" value="Ana Costa" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Quarto</label>
-            <input type="text" class="form-control" id="editQuarto1003" value="303" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Check-in</label>
-            <input type="date" class="form-control" id="editCheckin1003" value="2025-07-08" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Check-out</label>
-            <input type="date" class="form-control" id="editCheckout1003" value="2025-07-11" required>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-success">Salvar Alterações</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
             <tr>
               <td>1004</td>
-              <td>
-                Lucas Alves
-                <button class="btn btn-sm btn-link p-0 ms-2 align-baseline" data-bs-toggle="modal" data-bs-target="#editar1004" title="Editar">
-                  <i class="bi bi-pencil-square"></i>
-                </button>
-              </td>
+              <td>Lucas Alves</td>
               <td>404</td>
               <td>2025-07-07</td>
               <td>2025-07-10</td>
-              <td><span class="badge bg-primary">Hospedado</span></td>
-              <td>
-                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#detalhes1004">Detalhes</button>
-              </td>
             </tr>
-
-            <!-- Modal de edição para Lucas Alves -->
-<div class="modal fade" id="editar1004" tabindex="-1" aria-labelledby="editarLabel1004" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content bg-dark text-light">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editarLabel1004">Editar Reserva #1004</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <form id="formEditar1004">
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">Nome</label>
-            <input type="text" class="form-control" id="editNome1004" value="Lucas Alves" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Quarto</label>
-            <input type="text" class="form-control" id="editQuarto1004" value="404" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Check-in</label>
-            <input type="date" class="form-control" id="editCheckin1004" value="2025-07-07" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Check-out</label>
-            <input type="date" class="form-control" id="editCheckout1004" value="2025-07-10" required>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-success">Salvar Alterações</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+            <!-- Novos clientes serão adicionados via JS, sem coluna de status -->
           </tbody>
         </table>
       </div>
     </div>
-
-    <!-- Modais de Detalhes -->
-    <div class="modal fade" id="detalhes1001" tabindex="-1" aria-labelledby="label1001" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content bg-dark text-light">
-          <div class="modal-header">
-            <h5 class="modal-title" id="label1001">Detalhes da Reserva #1001 - Maria Silva</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <ul class="list-group list-group-flush" id="gastosLista1001"></ul>
-            <div class="input-group mt-3">
-              <input type="text" class="form-control" id="descGasto1001" placeholder="Descrição (ex: Café)">
-              <input type="number" min="1" class="form-control" id="qtdGasto1001" placeholder="Qtd" style="max-width:80px">
-              <input type="number" min="0" step="0.01" class="form-control" id="precoGasto1001" placeholder="Preço (R$)" style="max-width:120px">
-              <button class="btn btn-success" id="btnAddGasto1001">Adicionar Gasto</button>
-            </div>
-            <hr>
-            <strong id="totalAdicionais1001">Total de adicionais: R$ 0,00</strong>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-outline-light" data-bs-dismiss="modal">Fechar</button>
-          </div>
-        </div>
-      </div>
+    <div class="mt-4">
+      <h5>Ajuda</h5>
+      <ul>
+        <li>Use o campo de busca para filtrar reservas por nome ou quarto.</li>
+        <li>Clique em "Exportar para CSV" para baixar a lista de reservas.</li>
+        <li>Clique em "Imprimir Página" para gerar uma versão para impressão.</li>
+        <li>Cadastre novos clientes usando o botão no topo.</li>
+      </ul>
     </div>
-
-    <div class="modal fade" id="detalhes1002" tabindex="-1" aria-labelledby="label1002" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content bg-dark text-light">
-          <div class="modal-header">
-            <h5 class="modal-title" id="label1002">Detalhes da Reserva #1002 - João Pereira</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <ul class="list-group list-group-flush" id="gastosLista1002"></ul>
-            <div class="input-group mt-3">
-              <input type="text" class="form-control" id="descGasto1002" placeholder="Descrição (ex: Café)">
-              <input type="number" min="1" class="form-control" id="qtdGasto1002" placeholder="Qtd" style="max-width:80px">
-              <input type="number" min="0" step="0.01" class="form-control" id="precoGasto1002" placeholder="Preço (R$)" style="max-width:120px">
-              <button class="btn btn-success" id="btnAddGasto1002">Adicionar Gasto</button>
-            </div>
-            <hr>
-            <strong id="totalAdicionais1002">Total de adicionais: R$ 0,00</strong>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-outline-light" data-bs-dismiss="modal">Fechar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="detalhes1003" tabindex="-1" aria-labelledby="label1003" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content bg-dark text-light">
-          <div class="modal-header">
-            <h5 class="modal-title" id="label1003">Detalhes da Reserva #1003 - Ana Costa</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <ul class="list-group list-group-flush" id="gastosLista1003"></ul>
-            <div class="input-group mt-3">
-              <input type="text" class="form-control" id="descGasto1003" placeholder="Descrição (ex: Café)">
-              <input type="number" min="1" class="form-control" id="qtdGasto1003" placeholder="Qtd" style="max-width:80px">
-              <input type="number" min="0" step="0.01" class="form-control" id="precoGasto1003" placeholder="Preço (R$)" style="max-width:120px">
-              <button class="btn btn-success" id="btnAddGasto1003">Adicionar Gasto</button>
-            </div>
-            <hr>
-            <strong id="totalAdicionais1003">Total de adicionais: R$ 0,00</strong>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-outline-light" data-bs-dismiss="modal">Fechar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="detalhes1004" tabindex="-1" aria-labelledby="label1004" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content bg-dark text-light">
-          <div class="modal-header">
-            <h5 class="modal-title" id="label1004">Detalhes da Reserva #1004 - Lucas Alves</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <ul class="list-group list-group-flush" id="gastosLista1004"></ul>
-            <div class="input-group mt-3">
-              <input type="text" class="form-control" id="descGasto1004" placeholder="Descrição (ex: Café)">
-              <input type="number" min="1" class="form-control" id="qtdGasto1004" placeholder="Qtd" style="max-width:80px">
-              <input type="number" min="0" step="0.01" class="form-control" id="precoGasto1004" placeholder="Preço (R$)" style="max-width:120px">
-              <button class="btn btn-success" id="btnAddGasto1004">Adicionar Gasto</button>
-            </div>
-            <hr>
-            <strong id="totalAdicionais1004">Total de adicionais: R$ 0,00</strong>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-outline-light" data-bs-dismiss="modal">Fechar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </main>
-
-  <!-- Rodapé -->
   <footer class="mt-auto py-3 text-center text-light" style="background-color: #001f33">
     &copy; 2025 Pousada Quinta do Ypuá. Todos os direitos reservados.
   </footer>
-
-  <!-- Scripts -->
+  <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer" style="z-index: 9999"></div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 const filtroNome = document.getElementById('filtroNome');
-  const filtroStatus = document.getElementById('filtroStatus');
-  const tabela = document.getElementById('tabelaReservas').getElementsByTagName('tbody')[0];
+const tabela = document.getElementById('tabelaReservas').getElementsByTagName('tbody')[0];
+const novosClientes = JSON.parse(localStorage.getItem('novosClientes')) || [];
+let contadorReservas = 1005;
 
-  function filtrarTabela() {
-    const termo = filtroNome.value.toLowerCase();
-    const status = filtroStatus.value;
-
-    Array.from(tabela.rows).forEach(row => {
-      const nome = row.cells[1].textContent.toLowerCase();
-      const quarto = row.cells[2].textContent;
-      const statusAtual = row.cells[5].innerText.replace(/^\s*|\s*$/g, '');
-
-      const nomeOuQuarto = nome.includes(termo) || quarto.includes(termo);
-      const statusMatch = !status || status === statusAtual;
-
-      row.style.display = nomeOuQuarto && statusMatch ? '' : 'none';
-    });
-  }
-
-  filtroNome.addEventListener('input', filtrarTabela);
-  filtroStatus.addEventListener('change', filtrarTabela);
-
-  // 🔄 Carrega novos clientes do localStorage
-  const novosClientes = JSON.parse(localStorage.getItem('novosClientes')) || [];
-  let contadorReservas = 1005;
-  const hoje = new Date().toISOString().slice(0, 10);
-
-novosClientes.forEach((cliente, idx) => {
-  
-  // Atualiza status se hoje for igual ao check-in
-  if (cliente.status === "Pré-Reserva" && cliente.checkin === hoje) {
-    cliente.status = "Hospedado";
-    // Atualiza no localStorage
-    const clientes = JSON.parse(localStorage.getItem('novosClientes')) || [];
-    const clienteIdx = clientes.findIndex(c =>
-      c.nome === cliente.nome &&
-      c.checkin === cliente.checkin &&
-      c.checkout === cliente.checkout
-    );
-    if (clienteIdx > -1) {
-      clientes[clienteIdx].status = "Hospedado";
-      localStorage.setItem('novosClientes', JSON.stringify(clientes));
-    }
-  }
-
-  const idReserva = contadorReservas++;
-  const novaLinha = document.createElement('tr');
-
-  let badgeClass = '';
-  switch (cliente.status) {
-    case 'Confirmado': badgeClass = 'bg-success'; break;
-    case 'Pré-Reserva': badgeClass = 'bg-warning text-dark'; break;
-    case 'Cancelado': badgeClass = 'bg-danger'; break;
-    case 'Hospedado': badgeClass = 'bg-primary'; break;
-  }
-
-  const podeFazerCheckout = cliente.status === "Hospedado" && hoje >= cliente.checkout;
-  novaLinha.innerHTML = `
-  <td>${idReserva}</td>
-  <td>
-    ${cliente.nome}
-    <button class="btn btn-sm btn-link p-0 ms-2 align-baseline" data-bs-toggle="modal" data-bs-target="#editarNovo${idReserva}" title="Editar">
-      <i class="bi bi-pencil-square"></i>
-    </button>
-  </td>
-  <td>${cliente.quarto}</td>
-  <td>${cliente.checkin}</td>
-  <td>${cliente.checkout}</td>
-  <td><span class="badge ${badgeClass}">${cliente.status}</span></td>
-  <td>
-    <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#detalhesNovo${idReserva}">Detalhes</button>
-  </td>
-`;
-
-  tabela.appendChild(novaLinha);
-
-  // Cria o modal de detalhes para este cliente
-  const modal = document.createElement('div');
-  modal.className = 'modal fade';
-  modal.id = `detalhesNovo${idReserva}`;
-  modal.tabIndex = -1;
-  modal.setAttribute('aria-labelledby', `labelNovo${idReserva}`);
-  modal.setAttribute('aria-hidden', 'true');
-  modal.innerHTML = `
-  <div class="modal-dialog modal-dialog-scrollable modal-lg">
-    <div class="modal-content bg-dark text-light">
-      <div class="modal-header">
-        <h5 class="modal-title" id="labelNovo${idReserva}">Detalhes da Reserva #${idReserva} - ${cliente.nome}</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <ul class="list-group list-group-flush" id="gastosLista${idReserva}">
-          ${
-            Array.isArray(cliente.gastosExtras) && cliente.gastosExtras.length > 0
-              ? cliente.gastosExtras
-                  .filter(gasto =>
-                    gasto.descricao && gasto.descricao.trim() !== "" &&
-                    gasto.quantidade > 0 &&
-                    gasto.preco > 0
-                  )
-                  .map(gasto =>
-                    `<li class="list-group-item bg-dark">
-                      ${gasto.descricao} – R$ ${Number(gasto.preco).toFixed(2)} x ${gasto.quantidade} = <strong>R$ ${(gasto.quantidade * gasto.preco).toFixed(2)}</strong>
-                    </li>`
-                  ).join('') ||
-                `<li class="list-group-item bg-dark">Nenhum gasto extra registrado.</li>`
-              : `<li class="list-group-item bg-dark">Nenhum gasto extra registrado.</li>`
-          }
-        </ul>
-        <div class="input-group mt-3">
-          <input type="text" class="form-control" id="descGasto${idReserva}" placeholder="Descrição (ex: Café)">
-          <input type="number" min="1" class="form-control" id="qtdGasto${idReserva}" placeholder="Qtd" style="max-width:80px">
-          <input type="number" min="0" step="0.01" class="form-control" id="precoGasto${idReserva}" placeholder="Preço (R$)" style="max-width:120px">
-          <button class="btn btn-success" id="btnAddGasto${idReserva}">Adicionar Gasto</button>
-        </div>
-        <hr>
-        <strong id="totalAdicionais${idReserva}">Total de adicionais: R$ ${
-          Array.isArray(cliente.gastosExtras) && cliente.gastosExtras.length > 0
-            ? cliente.gastosExtras.reduce((soma, gasto) => soma + ((gasto.quantidade && gasto.preco) ? (gasto.quantidade * gasto.preco) : 0), 0).toFixed(2)
-            : '0,00'
-        }</strong>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-outline-light" data-bs-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-  </div>
-`;
-  document.body.appendChild(modal);
-
-  // Adiciona evento para adicionar gastos extras
-  setTimeout(() => {
-    const btnAdd = document.getElementById(`btnAddGasto${idReserva}`);
-    const descInput = document.getElementById(`descGasto${idReserva}`);
-    const qtdInput = document.getElementById(`qtdGasto${idReserva}`);
-    const precoInput = document.getElementById(`precoGasto${idReserva}`);
-    const listaGastos = document.getElementById(`gastosLista${idReserva}`);
-    const totalSpan = document.getElementById(`totalAdicionais${idReserva}`);
-
-    btnAdd.addEventListener('click', () => {
-      const descricao = descInput.value.trim();
-      const quantidade = Number(qtdInput.value);
-      const preco = Number(precoInput.value);
-
-      if (descricao && quantidade > 0 && preco >= 0) {
-        // Atualiza localStorage
-        const clientes = JSON.parse(localStorage.getItem('novosClientes')) || [];
-        const clienteIdx = clientes.findIndex(c =>
-          c.nome === cliente.nome &&
-          c.checkin === cliente.checkin &&
-          c.checkout === cliente.checkout
-        );
-        if (clienteIdx > -1) {
-          if (!Array.isArray(clientes[clienteIdx].gastosExtras)) {
-            clientes[clienteIdx].gastosExtras = [];
-          }
-          clientes[clienteIdx].gastosExtras.push({ descricao, quantidade, preco });
-          localStorage.setItem('novosClientes', JSON.stringify(clientes));
-        }
-        // Atualiza lista na tela
-        if (listaGastos.querySelector('li') && listaGastos.querySelector('li').textContent === 'Nenhum gasto extra registrado.') {
-          listaGastos.innerHTML = '';
-        }
-        const li = document.createElement('li');
-        li.className = 'list-group-item bg-dark';
-        li.innerHTML = `${descricao} – R$ ${preco.toFixed(2)} x ${quantidade} = <strong>R$ ${(quantidade * preco).toFixed(2)}</strong>`;
-        listaGastos.appendChild(li);
-
-        // Atualiza total
-        let total = 0;
-        listaGastos.querySelectorAll('li').forEach(item => {
-          const match = item.innerHTML.match(/R\$ ([\d.,]+)<\/strong>/);
-          if (match) total += parseFloat(match[1].replace(',', '.'));
-        });
-        totalSpan.innerHTML = `Total de adicionais: R$ ${total.toFixed(2)}`;
-
-        descInput.value = '';
-        qtdInput.value = '';
-        precoInput.value = '';
-      }
-    });
-  }, 0);
-
-  // Cria o modal de edição para este cliente
-  const modalEditar = document.createElement('div');
-  modalEditar.className = 'modal fade';
-  modalEditar.id = `editarNovo${idReserva}`;
-  modalEditar.tabIndex = -1;
-  modalEditar.setAttribute('aria-labelledby', `editarLabelNovo${idReserva}`);
-  modalEditar.setAttribute('aria-hidden', 'true');
-  modalEditar.innerHTML = `
-    <div class="modal-dialog">
-      <div class="modal-content bg-dark text-light">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editarLabelNovo${idReserva}">Editar Reserva #${idReserva}</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <form id="formEditar${idReserva}">
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Nome</label>
-              <input type="text" class="form-control" id="editNome${idReserva}" value="${cliente.nome}" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Quarto</label>
-              <input type="text" class="form-control" id="editQuarto${idReserva}" value="${cliente.quarto}" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Check-in</label>
-              <input type="date" class="form-control" id="editCheckin${idReserva}" value="${cliente.checkin}" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Check-out</label>
-              <input type="date" class="form-control" id="editCheckout${idReserva}" value="${cliente.checkout}" required>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-success">Salvar Alterações</button>
-          </div>
-        </form>
-      </div>
+// Toast de notificação
+function showToast(msg, type = "success") {
+  const toastContainer = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast align-items-center text-bg-${type} border-0 show mb-2`;
+  toast.setAttribute('role', 'alert');
+  toast.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">${msg}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
     </div>
   `;
-  document.body.appendChild(modalEditar);
+  toastContainer.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+}
 
-  // Evento para salvar edição
-  setTimeout(() => {
-    const formEditar = document.getElementById(`formEditar${idReserva}`);
-    formEditar.addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Atualiza os dados no localStorage
-      const clientes = JSON.parse(localStorage.getItem('novosClientes')) || [];
-      const clienteIdx = clientes.findIndex(c =>
-        c.nome === cliente.nome &&
-        c.checkin === cliente.checkin &&
-        c.checkout === cliente.checkout
-      );
-      if (clienteIdx > -1) {
-        clientes[clienteIdx].nome = document.getElementById(`editNome${idReserva}`).value;
-        clientes[clienteIdx].quarto = document.getElementById(`editQuarto${idReserva}`).value;
-        clientes[clienteIdx].checkin = document.getElementById(`editCheckin${idReserva}`).value;
-        clientes[clienteIdx].checkout = document.getElementById(`editCheckout${idReserva}`).value;
-        localStorage.setItem('novosClientes', JSON.stringify(clientes));
-        window.location.reload();
-      }
-    });
-  }, 0);
-});
-// IDs dos clientes antigos
-const clientesAntigos = [
-  { id: 1001, gastosExtras: [] },
-  { id: 1002, gastosExtras: [] },
-  { id: 1003, gastosExtras: [] },
-  { id: 1004, gastosExtras: [] }
-];
-
-clientesAntigos.forEach(cliente => {
-  const btnAdd = document.getElementById(`btnAddGasto${cliente.id}`);
-  const descInput = document.getElementById(`descGasto${cliente.id}`);
-  const qtdInput = document.getElementById(`qtdGasto${cliente.id}`);
-  const precoInput = document.getElementById(`precoGasto${cliente.id}`);
-  const listaGastos = document.getElementById(`gastosLista${cliente.id}`);
-  const totalSpan = document.getElementById(`totalAdicionais${cliente.id}`);
-
-  if (btnAdd) {
-    btnAdd.addEventListener('click', () => {
-      const descricao = descInput.value.trim();
-      const quantidade = Number(qtdInput.value);
-      const preco = Number(precoInput.value);
-
-      if (descricao && quantidade > 0 && preco >= 0) {
-        cliente.gastosExtras.push({ descricao, quantidade, preco });
-
-        // Atualiza lista na tela
-        const li = document.createElement('li');
-        li.className = 'list-group-item bg-dark';
-        li.innerHTML = `${descricao} – R$ ${preco.toFixed(2)} x ${quantidade} = <strong>R$ ${(quantidade * preco).toFixed(2)}</strong>`;
-        listaGastos.appendChild(li);
-
-        // Atualiza total
-        let total = 0;
-        listaGastos.querySelectorAll('li').forEach(item => {
-          const match = item.innerHTML.match(/R\$ ([\d.,]+)<\/strong>/);
-          if (match) total += parseFloat(match[1].replace(',', '.'));
-        });
-        totalSpan.innerHTML = `Total de adicionais: R$ ${total.toFixed(2)}`;
-
-        descInput.value = '';
-        qtdInput.value = '';
-        precoInput.value = '';
-      }
-    });
-  }
-});
-
-// Cancelar reservas de clientes antigos se ultrapassar o check-in
-Array.from(tabela.rows).forEach(row => {
-  const checkin = row.cells[3]?.textContent;
-  const statusCell = row.cells[5];
-  if (checkin && statusCell) {
-    // Só cancela se não estiver já cancelado ou hospedado
-    if (
-      statusCell.textContent.trim() !== "Cancelado" &&
-      statusCell.textContent.trim() !== "Hospedado" &&
-      hoje > checkin
-    ) {
-      statusCell.innerHTML = '<span class="badge bg-danger">Cancelado</span>';
-    }
-  }
-});
-
-// Atualiza status automaticamente ao editar datas dos clientes antigos
-[1001, 1002, 1003, 1004].forEach(id => {
-  const form = document.getElementById(`formEditar${id}`);
-  if (form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const checkin = document.getElementById(`editCheckin${id}`).value;
-      const checkout = document.getElementById(`editCheckout${id}`).value;
-      const hoje = new Date().toISOString().slice(0, 10);
-      let status = "Pré-Reserva";
-      if (hoje > checkout) status = "Cancelado";
-      else if (hoje >= checkin && hoje <= checkout) status = "Hospedado";
-      else if (hoje < checkin) status = "Confirmado";
-      // Atualiza o status na tabela
-      const row = Array.from(document.querySelectorAll('#tabelaReservas tbody tr')).find(tr => tr.cells[0].textContent == id);
-      if (row) {
-        let badgeClass = '';
-        switch (status) {
-          case 'Confirmado': badgeClass = 'bg-success'; break;
-          case 'Pré-Reserva': badgeClass = 'bg-warning text-dark'; break;
-          case 'Cancelado': badgeClass = 'bg-danger'; break;
-          case 'Hospedado': badgeClass = 'bg-primary'; break;
-        }
-        row.cells[5].innerHTML = `<span class="badge ${badgeClass}">${status}</span>`;
-        row.cells[3].textContent = checkin;
-        row.cells[4].textContent = checkout;
-      }
-      // Fecha o modal
-      bootstrap.Modal.getInstance(document.getElementById(`editar${id}`)).hide();
-    });
-  }
-});
-
-// Atualiza status automaticamente ao editar datas dos clientes novos (dinâmicos)
+// Adiciona novos clientes na tabela
 novosClientes.forEach((cliente, idx) => {
-  const idReserva = 1005 + idx;
-  setTimeout(() => {
-    const formEditar = document.getElementById(`formEditar${idReserva}`);
-    if (formEditar) {
-      formEditar.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const editCheckin = document.getElementById(`editCheckin${idReserva}`).value;
-        const editCheckout = document.getElementById(`editCheckout${idReserva}`).value;
-        const hoje = new Date().toISOString().slice(0, 10);
-        let novoStatus = "Pré-Reserva";
-        if (hoje > editCheckout) novoStatus = "Cancelado";
-        else if (hoje >= editCheckin && hoje <= editCheckout) novoStatus = "Hospedado";
-        else if (hoje < editCheckin) novoStatus = "Confirmado";
-        // Atualiza os dados no localStorage
-        const clientes = JSON.parse(localStorage.getItem('novosClientes')) || [];
-        const clienteIdx = clientes.findIndex(c =>
-          c.nome === cliente.nome &&
-          c.checkin === cliente.checkin &&
-          c.checkout === cliente.checkout
-        );
-        if (clienteIdx > -1) {
-          clientes[clienteIdx].nome = document.getElementById(`editNome${idReserva}`).value;
-          clientes[clienteIdx].quarto = document.getElementById(`editQuarto${idReserva}`).value;
-          clientes[clienteIdx].checkin = editCheckin;
-          clientes[clienteIdx].checkout = editCheckout;
-          clientes[clienteIdx].status = novoStatus;
-          localStorage.setItem('novosClientes', JSON.stringify(clientes));
-          window.location.reload();
-        }
-      });
-    }
-  }, 0);
+  const idReserva = contadorReservas++;
+  const novaLinha = document.createElement('tr');
+  novaLinha.innerHTML = `
+    <td>${idReserva}</td>
+    <td>${cliente.nome}</td>
+    <td>${cliente.quarto}</td>
+    <td>${cliente.checkin}</td>
+    <td>${cliente.checkout}</td>
+  `;
+  tabela.appendChild(novaLinha);
 });
+
+function filtrarTabela() {
+  const termo = filtroNome.value.toLowerCase();
+  const dataCheckin = document.getElementById('filtroCheckin').value;
+  Array.from(tabela.rows).forEach(row => {
+    const nome = row.cells[1].textContent.toLowerCase();
+    const quarto = row.cells[2].textContent;
+    const checkin = row.cells[3].textContent;
+    const nomeOuQuarto = nome.includes(termo) || quarto.includes(termo);
+    const checkinMatch = !dataCheckin || checkin === dataCheckin;
+    row.style.display = (nomeOuQuarto && checkinMatch) ? '' : 'none';
+  });
+}
+filtroNome.addEventListener('input', filtrarTabela);
+document.getElementById('filtroCheckin').addEventListener('change', filtrarTabela);
+
+// Validação de formulário de cadastro
+document.getElementById('formCadastro').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const nome = document.getElementById('nome').value.trim();
+  const cpf = document.getElementById('cpf').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const telefone = document.getElementById('telefone').value.trim();
+  const quarto = document.getElementById('quarto').value.trim();
+  const checkin = document.getElementById('checkin').value;
+  const checkout = document.getElementById('checkout').value;
+
+  // Validação simples
+  if (!nome || !cpf || !quarto || !checkin || !checkout) {
+    showToast("Preencha todos os campos obrigatórios!", "danger");
+    return;
+  }
+  if (!/^\d{11}$/.test(cpf)) {
+    showToast("CPF deve conter 11 dígitos numéricos.", "danger");
+    return;
+  }
+  if (email && !/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+    showToast("E-mail inválido.", "danger");
+    return;
+  }
+  if (telefone && !/^\d{10,11}$/.test(telefone.replace(/\D/g, ""))) {
+    showToast("Telefone deve conter 10 ou 11 dígitos.", "danger");
+    return;
+  }
+  if (checkin > checkout) {
+    showToast("Data de check-in não pode ser após o check-out.", "danger");
+    return;
+  }
+
+  // Salva cliente
+  const novoCliente = {
+    nome,
+    cpf,
+    email,
+    telefone,
+    quarto,
+    checkin,
+    checkout,
+    status: "Pré-Reserva",
+    gastosExtras: [],
+    observacoes: document.getElementById('observacoes').value
+  };
+  const clientesExistentes = JSON.parse(localStorage.getItem('novosClientes')) || [];
+  clientesExistentes.push(novoCliente);
+  localStorage.setItem('novosClientes', JSON.stringify(clientesExistentes));
+
+  showToast("Cliente cadastrado com sucesso!", "success");
+  setTimeout(() => window.location.href = "reservas.html", 1000);
+});
+
+// Acessibilidade: foco no campo de busca ao carregar
+window.onload = () => {
+  document.getElementById('filtroNome').focus();
+};
 </script>
 <div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="modalCadastroLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -836,10 +277,8 @@ novosClientes.forEach((cliente, idx) => {
 <script src="js/novosClientes.js"></script>
 <script>
 const form = document.getElementById('formCadastro');
-
 form.addEventListener('submit', function (e) {
   e.preventDefault();
- 
   const novoCliente = {
     nome: document.getElementById('nome').value,
     quarto: document.getElementById('quarto').value,
@@ -848,7 +287,6 @@ form.addEventListener('submit', function (e) {
     status: "Pré-Reserva",
     gastosExtras: [] 
   };
-
   const clientesExistentes = JSON.parse(localStorage.getItem('novosClientes')) || [];
   clientesExistentes.push(novoCliente);
   localStorage.setItem('novosClientes', JSON.stringify(clientesExistentes));

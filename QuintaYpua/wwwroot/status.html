@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Status das Reservas - Quinta do Ypuá</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg custom-navbar px-3">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="index.html">Pousada Quinta do Ypuá</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 align-items-center gap-2">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">🏠 Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reservas.html">📅 Reservas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="status.html">🛏️ Status</a>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#modalCadastro">
+              ➕ Cadastrar Cliente
+            </button>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-outline-light btn-sm" href="index.html">Sair</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main class="container-fluid px-4 pt-4 pb-2 flex-grow-1">
+    <h1 class="text-center">Status das Reservas</h1>
+
+    <!-- 2, 3, 7: Filtros e Paginação -->
+    <div class="row mb-4 filtros">
+      <div class="col-md-3 mb-2">
+        <input type="text" id="filtroNome" class="form-control border-primary text-black" placeholder="🔍 Buscar por nome ou quarto" />
+      </div>
+      <div class="col-md-3 mb-2">
+        <input type="date" id="filtroCheckin" class="form-control border-primary text-primary" placeholder="Filtrar por Check-in" />
+      </div>
+    </div>
+    <div id="paginacao" class="mb-2 d-flex justify-content-center gap-2"></div>
+    <div class="table-container">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered text-white align-middle" id="tabelaStatus">
+          <thead>
+            <tr>
+              <th>ID Reserva</th>
+              <th>Nome do Cliente</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Conteúdo gerado pelo JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <footer class="mt-auto py-3 text-center text-light" style="background-color: #001f33">
+    &copy; 2025 Pousada Quinta do Ypuá. Todos os direitos reservados.
+  </footer>
+
+  <!-- Modal de Detalhes e Gastos Extras -->
+  <div class="modal fade" id="modalDetalhes" tabindex="-1" aria-labelledby="modalDetalhesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalDetalhesLabel">Detalhes da Reserva</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div id="detalhesCliente"></div>
+          <hr>
+          <h6>Gastos Extras</h6>
+          <ul id="listaGastosExtras" class="mb-3"></ul>
+          <form id="formGastoExtra" class="row g-2">
+            <div class="col-md-5">
+              <input type="text" class="form-control" id="descricaoGasto" placeholder="Descrição do gasto" required>
+            </div>
+            <div class="col-md-3">
+              <input type="number" class="form-control" id="valorGasto" placeholder="Valor (R$)" min="0" step="0.01" required>
+            </div>
+            <div class="col-md-2">
+              <input type="number" class="form-control" id="quantidadeGasto" placeholder="Qtd." min="1" step="1" value="1" required>
+            </div>
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-success w-100">Adicionar</button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Cadastro de Cliente (copiado do reservas.html) -->
+  <div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="modalCadastroLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalCadastroLabel">Cadastrar Novo Cliente</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="formCadastro">
+          <div class="modal-body row g-3">
+            <div class="col-md-6">
+              <label for="nome" class="form-label">Nome</label>
+              <input type="text" class="form-control" id="nome" required />
+            </div>
+            <div class="col-md-6">
+              <label for="cpf" class="form-label">CPF</label>
+              <input type="text" class="form-control" id="cpf" required />
+            </div>
+            <div class="col-md-6">
+              <label for="email" class="form-label">E-mail</label>
+              <input type="email" class="form-control" id="email" />
+            </div>
+            <div class="col-md-6">
+              <label for="telefone" class="form-label">Telefone</label>
+              <input type="tel" class="form-control" id="telefone" />
+            </div>
+            <div class="col-md-4">
+              <label for="quarto" class="form-label">Quarto</label>
+              <input type="text" class="form-control" id="quarto" required />
+            </div>
+            <div class="col-md-4">
+              <label for="checkin" class="form-label">Check-in</label>
+              <input type="date" class="form-control" id="checkin" required />
+            </div>
+            <div class="col-md-4">
+              <label for="checkout" class="form-label">Check-out</label>
+              <input type="date" class="form-control" id="checkout" required />
+            </div>
+            <div class="col-12">
+              <label for="observacoes" class="form-label">Observações</label>
+              <textarea class="form-control" id="observacoes" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Preços dos quartos (exemplo, ajuste conforme necessário)
+    const precosQuartos = {
+      "101": 200,
+      "202": 250,
+      "303": 180,
+      "404": 220
+    };
+
+    // IDs e dados fixos dos clientes antigos
+    const clientesAntigos = [
+      { id: 1001, nome: "Maria Silva", status: "Confirmado", quarto: "101", gastosExtras: [] },
+      { id: 1002, nome: "João Pereira", status: "Pré-Reserva", quarto: "202", gastosExtras: [] },
+      { id: 1003, nome: "Ana Costa", status: "Cancelado", quarto: "303", gastosExtras: [] },
+      { id: 1004, nome: "Lucas Alves", status: "Hospedado", quarto: "404", gastosExtras: [] }
+    ];
+    // Clientes cadastrados via localStorage
+    const novosClientes = JSON.parse(localStorage.getItem('novosClientes')) || [];
+    let contadorReservas = 1005;
+    const tbody = document.querySelector('#tabelaStatus tbody');
+
+    // Função para abrir modal de detalhes
+    function abrirModalDetalhes(cliente, idReserva, isNovoCliente = false, idxNovo = null) {
+      // Preço do quarto
+      let precoQuarto = precosQuartos[cliente.quarto] ? `R$ ${precosQuartos[cliente.quarto].toFixed(2)}` : "Não informado";
+      // Gastos extras
+      let gastosExtras = cliente.gastosExtras || [];
+      let totalGastos = gastosExtras.reduce((soma, g) => soma + Number(g.valor) * (g.quantidade || 1), 0);
+
+      // Monta detalhes
+      document.getElementById('detalhesCliente').innerHTML = `
+        <strong>ID Reserva:</strong> ${idReserva}<br>
+        <strong>Nome:</strong> ${cliente.nome}<br>
+        <strong>Quarto:</strong> ${cliente.quarto || "Não informado"}<br>
+        <strong>Preço do Quarto:</strong> ${precoQuarto}<br>
+        <strong>Status:</strong> ${cliente.status}<br>
+        <strong>Total de Gastos Extras:</strong> R$ ${totalGastos.toFixed(2)}
+      `;
+
+      // Lista de gastos extras
+      const lista = document.getElementById('listaGastosExtras');
+      lista.innerHTML = '';
+      gastosExtras.forEach((g, i) => {
+        const li = document.createElement('li');
+        const qtd = g.quantidade || 1;
+        li.textContent = `${g.descricao} - Qtd: ${qtd} - R$ ${(Number(g.valor) * qtd).toFixed(2)} (${qtd} x R$ ${Number(g.valor).toFixed(2)})`;
+        lista.appendChild(li);
+      });
+
+      // Salva referência do cliente aberto
+      window.clienteModal = { cliente, idReserva, isNovoCliente, idxNovo };
+
+      // Limpa formulário de gasto extra
+      document.getElementById('descricaoGasto').value = '';
+      document.getElementById('valorGasto').value = '';
+      document.getElementById('quantidadeGasto').value = 1;
+
+      // Mostra modal
+      const modal = new bootstrap.Modal(document.getElementById('modalDetalhes'));
+      modal.show();
+    }
+
+    // Adiciona clientes antigos
+    clientesAntigos.forEach(cliente => {
+      let badgeClass = '';
+      switch (cliente.status) {
+        case 'Confirmado': badgeClass = 'bg-success'; break;
+        case 'Pré-Reserva': badgeClass = 'bg-warning text-dark'; break;
+        case 'Cancelado': badgeClass = 'bg-danger'; break;
+        case 'Hospedado': badgeClass = 'bg-primary'; break;
+      }
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${cliente.id}</td>
+        <td>${cliente.nome}</td>
+        <td><span class="badge ${badgeClass}">${cliente.status}</span></td>
+        <td>
+          <button class="btn btn-sm btn-light" onclick="abrirModalDetalhes(clientesAntigos[${cliente.id - 1001}], ${cliente.id}, false, null)">Ver Detalhes</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Adiciona novos clientes
+    novosClientes.forEach((cliente, idx) => {
+      const idReserva = contadorReservas + idx;
+      let badgeClass = '';
+      switch (cliente.status) {
+        case 'Confirmado': badgeClass = 'bg-success'; break;
+        case 'Pré-Reserva': badgeClass = 'bg-warning text-dark'; break;
+        case 'Cancelado': badgeClass = 'bg-danger'; break;
+        case 'Hospedado': badgeClass = 'bg-primary'; break;
+      }
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${idReserva}</td>
+        <td>${cliente.nome}</td>
+        <td><span class="badge ${badgeClass}">${cliente.status}</span></td>
+        <td>
+          <button class="btn btn-sm btn-light" onclick="abrirModalDetalhes(novosClientes[${idx}], ${idReserva}, true, ${idx})">Ver Detalhes</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // 2, 3, 7: Filtros avançados e paginação
+    let paginaAtual = 1;
+    const linhasPorPagina = 6;
+
+    function filtrarTabela() {
+      const termoNome = document.getElementById('filtroNome').value.toLowerCase();
+      const termoQuarto = document.getElementById('filtroQuarto').value.toLowerCase();
+      const statusFiltro = document.getElementById('filtroStatus').value;
+      const dataFiltro = document.getElementById('filtroCheckin').value;
+      Array.from(document.querySelectorAll('#tabelaStatus tbody tr')).forEach(row => {
+        const nome = row.cells[1].textContent.toLowerCase();
+        const status = row.querySelector('td:nth-child(3) .badge')?.textContent;
+        const quarto = row.cells[1].getAttribute('data-quarto') || ""; // ajuste se quiser usar data-quarto
+        const checkin = row.cells[1].getAttribute('data-checkin') || ""; // ajuste se quiser usar data-checkin
+
+        let nomeMatch = !termoNome || nome.includes(termoNome);
+        let quartoMatch = !termoQuarto || (quarto && quarto.includes(termoQuarto));
+        let statusMatch = !statusFiltro || status === statusFiltro;
+        let dataMatch = !dataFiltro || checkin === dataFiltro;
+
+        row.style.display = (nomeMatch && quartoMatch && statusMatch && dataMatch) ? '' : 'none';
+      });
+      paginaAtual = 1;
+      paginarTabela();
+    }
+
+    function paginarTabela() {
+      const linhas = Array.from(document.querySelectorAll('#tabelaStatus tbody tr')).filter(row => row.style.display !== "none");
+      linhas.forEach((row, idx) => {
+        row.style.display = (idx >= (paginaAtual - 1) * linhasPorPagina && idx < paginaAtual * linhasPorPagina) ? '' : 'none';
+      });
+      atualizarPaginacao(linhas.length);
+    }
+
+    function atualizarPaginacao(totalLinhas) {
+      let totalPaginas = Math.ceil(totalLinhas / linhasPorPagina);
+      let paginacao = document.getElementById('paginacao');
+      paginacao.innerHTML = '';
+      for (let i = 1; i <= totalPaginas; i++) {
+        let btn = document.createElement('button');
+        btn.className = 'btn btn-sm ' + (i === paginaAtual ? 'btn-primary' : 'btn-outline-primary');
+        btn.textContent = i;
+        btn.onclick = () => { paginaAtual = i; paginarTabela(); };
+        paginacao.appendChild(btn);
+      }
+    }
+
+    // Adicione os listeners dos filtros
+    document.getElementById('filtroNome').addEventListener('input', filtrarTabela);
+    document.getElementById('filtroStatus').addEventListener('change', filtrarTabela);
+    document.getElementById('filtroCheckin').addEventListener('change', filtrarTabela);
+    document.getElementById('filtroQuarto').addEventListener('input', filtrarTabela);
+
+    // Chame a filtragem e paginação ao carregar
+    window.onload = () => {
+      filtrarTabela();
+    };
+
+    // Adicionar gasto extra
+    document.getElementById('formGastoExtra').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const desc = document.getElementById('descricaoGasto').value.trim();
+      const valor = parseFloat(document.getElementById('valorGasto').value);
+      const quantidade = parseInt(document.getElementById('quantidadeGasto').value) || 1;
+      if (!desc || isNaN(valor) || valor < 0 || isNaN(quantidade) || quantidade < 1) return;
+
+      const { cliente, isNovoCliente, idxNovo } = window.clienteModal;
+      if (!cliente.gastosExtras) cliente.gastosExtras = [];
+      cliente.gastosExtras.push({ descricao: desc, valor, quantidade });
+
+      // Atualiza storage se for novo cliente
+      if (isNovoCliente && idxNovo !== null) {
+        const clientes = JSON.parse(localStorage.getItem('novosClientes')) || [];
+        clientes[idxNovo].gastosExtras = cliente.gastosExtras;
+        localStorage.setItem('novosClientes', JSON.stringify(clientes));
+      }
+
+      // Atualiza modal
+      abrirModalDetalhes(cliente, window.clienteModal.idReserva, isNovoCliente, idxNovo);
+    });
+
+    // Cadastro de novo cliente (igual reservas.html)
+    document.getElementById('formCadastro').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value.trim();
+      const cpf = document.getElementById('cpf').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const telefone = document.getElementById('telefone').value.trim();
+      const quarto = document.getElementById('quarto').value.trim();
+      const checkin = document.getElementById('checkin').value;
+      const checkout = document.getElementById('checkout').value;
+
+      if (!nome || !cpf || !quarto || !checkin || !checkout) {
+        alert("Preencha todos os campos obrigatórios!");
+        return;
+      }
+      if (!/^\d{11}$/.test(cpf)) {
+        alert("CPF deve conter 11 dígitos numéricos.");
+        return;
+      }
+      if (email && !/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+        alert("E-mail inválido.");
+        return;
+      }
+      if (telefone && !/^\d{10,11}$/.test(telefone.replace(/\D/g, ""))) {
+        alert("Telefone deve conter 10 ou 11 dígitos.");
+        return;
+      }
+      if (checkin > checkout) {
+        alert("Data de check-in não pode ser após o check-out.");
+        return;
+      }
+
+      const novoCliente = {
+        nome,
+        cpf,
+        email,
+        telefone,
+        quarto,
+        checkin,
+        checkout,
+        status: "Pré-Reserva",
+        gastosExtras: [],
+        observacoes: document.getElementById('observacoes').value
+      };
+      const clientesExistentes = JSON.parse(localStorage.getItem('novosClientes')) || [];
+      clientesExistentes.push(novoCliente);
+      localStorage.setItem('novosClientes', JSON.stringify(clientesExistentes));
+
+      // Fecha modal e recarrega página para atualizar lista
+      const modal = bootstrap.Modal.getInstance(document.getElementById('modalCadastro'));
+      modal.hide();
+      location.reload();
+    });
+  </script>
+</body>
+</html>
