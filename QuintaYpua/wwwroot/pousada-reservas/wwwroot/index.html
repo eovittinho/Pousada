@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pousada Quinta Ypua - Reservas</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Faça sua Reserva</h1>
+    </header>
+    <main>
+        <form id="formCadastro">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" required>
+
+            <label for="quarto">Número do Quarto:</label>
+            <input type="text" id="quarto" required>
+
+            <label for="checkin">Data de Check-in:</label>
+            <input type="date" id="checkin" required>
+
+            <label for="checkout">Data de Check-out:</label>
+            <input type="date" id="checkout" required>
+
+            <button type="submit">Reservar</button>
+        </form>
+        <p>Já tem uma reserva? <a href="reservas.html">Veja suas reservas aqui</a>.</p>
+    </main>
+    <script src="js/novosClientes.js"></script>
+</body>
+</html>

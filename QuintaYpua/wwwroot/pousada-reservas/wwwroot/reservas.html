@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Reservas</h1>
+    </header>
+    <main>
+        <section id="reservas">
+            <h2>Lista de Reservas</h2>
+            <ul id="listaReservas"></ul>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const clientesExistentes = JSON.parse(localStorage.getItem('novosClientes')) || [];
+            const listaReservas = document.getElementById('listaReservas');
+
+            clientesExistentes.forEach(cliente => {
+                const li = document.createElement('li');
+                li.textContent = `Nome: ${cliente.nome}, Quarto: ${cliente.quarto}, Check-in: ${cliente.checkin}, Check-out: ${cliente.checkout}, Status: ${cliente.status}`;
+                listaReservas.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>

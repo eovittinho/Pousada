@@ -26,11 +26,7 @@
           <li class="nav-item">
             <a class="nav-link" href="status.html">🛏️ Status</a>
           </li>
-             <li class="nav-item">
-          <button class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#modalCadastro">
-            ➕ Cadastrar Cliente
-          </button>
-        </li>
+            <!-- Botão de cadastro de cliente removido do menu, permanece apenas na página de Reservas -->
           <li class="nav-item">
             <a class="btn btn-outline-light btn-sm" href="index.html">Sair</a>
           </li>
@@ -39,7 +35,13 @@
     </div>
   </nav>
   <main class="container-fluid px-4 pt-4 pb-2 flex-grow-1">
-    <h1 class="text-center">Gerenciador de Reservas</h1>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="text-center flex-grow-1">Gerenciador de Reservas</h1>
+      <button class="btn btn-success ms-3" data-bs-toggle="modal" data-bs-target="#modalCadastro">
+        ➕ Cadastrar Novo Cliente
+      </button>
+    </div>
 
     <div class="row mb-4 filtros">
       <div class="col-md-4 mb-2">
@@ -63,6 +65,7 @@
               <th>Quarto</th>
               <th>Check-in</th>
               <th>Check-out</th>
+              <!-- <th>Ações</th> -->
             </tr>
           </thead>
           <tbody>
@@ -72,6 +75,7 @@
               <td>101</td>
               <td>2025-07-10</td>
               <td>2025-07-15</td>
+              <!-- <td><button class="btn btn-sm btn-light" onclick="abrirModalDetalhesReserva(1001, false, null)">Ver Detalhes</button></td> -->
             </tr>
             <tr>
               <td>1002</td>
@@ -79,6 +83,7 @@
               <td>202</td>
               <td>2025-07-12</td>
               <td>2025-07-14</td>
+              <!-- <td><button class="btn btn-sm btn-light" onclick="abrirModalDetalhesReserva(1002, false, null)">Ver Detalhes</button></td> -->
             </tr>
             <tr>
               <td>1003</td>
@@ -86,6 +91,7 @@
               <td>303</td>
               <td>2025-07-08</td>
               <td>2025-07-11</td>
+              <!-- <td><button class="btn btn-sm btn-light" onclick="abrirModalDetalhesReserva(1003, false, null)">Ver Detalhes</button></td> -->
             </tr>
             <tr>
               <td>1004</td>
@@ -93,6 +99,7 @@
               <td>404</td>
               <td>2025-07-07</td>
               <td>2025-07-10</td>
+              <!-- <td><button class="btn btn-sm btn-light" onclick="abrirModalDetalhesReserva(1004, false, null)">Ver Detalhes</button></td> -->
             </tr>
             <!-- Novos clientes serão adicionados via JS, sem coluna de status -->
           </tbody>
@@ -105,7 +112,7 @@
         <li>Use o campo de busca para filtrar reservas por nome ou quarto.</li>
         <li>Clique em "Exportar para CSV" para baixar a lista de reservas.</li>
         <li>Clique em "Imprimir Página" para gerar uma versão para impressão.</li>
-        <li>Cadastre novos clientes usando o botão no topo.</li>
+  <li>Cadastre novos clientes usando o botão "Cadastrar Cliente" nesta página de Reservas.</li>
       </ul>
     </div>
   </main>
@@ -138,7 +145,7 @@ function showToast(msg, type = "success") {
 
 // Adiciona novos clientes na tabela
 novosClientes.forEach((cliente, idx) => {
-  const idReserva = contadorReservas++;
+  const idReserva = contadorReservas + idx;
   const novaLinha = document.createElement('tr');
   novaLinha.innerHTML = `
     <td>${idReserva}</td>
@@ -146,9 +153,14 @@ novosClientes.forEach((cliente, idx) => {
     <td>${cliente.quarto}</td>
     <td>${cliente.checkin}</td>
     <td>${cliente.checkout}</td>
+  <!-- <td><button class="btn btn-sm btn-light" onclick="abrirModalDetalhesReserva(${idReserva}, true, ${idx})">Ver Detalhes</button></td> -->
   `;
   tabela.appendChild(novaLinha);
 });
+</script>
+<!-- Modal de Detalhes e Gastos Extras removido da aba de Reservas -->
+<script>
+// Modal de detalhes e lógica de gastos extras removidos da aba de Reservas
 
 function filtrarTabela() {
   const termo = filtroNome.value.toLowerCase();

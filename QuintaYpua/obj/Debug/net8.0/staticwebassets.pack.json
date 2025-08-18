@@ -1,0 +1,65 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\img\\quinta-removebg-preview.png",
+      "PackagePath": "staticwebassets\\img\\quinta-removebg-preview.png"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\js\\novosClientes.js",
+      "PackagePath": "staticwebassets\\js\\novosClientes.js"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\pousada-reservas\\README.md",
+      "PackagePath": "staticwebassets\\pousada-reservas\\README.md"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\pousada-reservas\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\pousada-reservas\\wwwroot\\css\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\pousada-reservas\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\pousada-reservas\\wwwroot\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\pousada-reservas\\wwwroot\\js\\novosClientes.js",
+      "PackagePath": "staticwebassets\\pousada-reservas\\wwwroot\\js\\novosClientes.js"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\pousada-reservas\\wwwroot\\reservas.html",
+      "PackagePath": "staticwebassets\\pousada-reservas\\wwwroot\\reservas.html"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\reservas.html",
+      "PackagePath": "staticwebassets\\reservas.html"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\status.html",
+      "PackagePath": "staticwebassets\\status.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.QuintaYpua.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.QuintaYpua.props",
+      "PackagePath": "build\\QuintaYpua.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.QuintaYpua.props",
+      "PackagePath": "buildMultiTargeting\\QuintaYpua.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.QuintaYpua.props",
+      "PackagePath": "buildTransitive\\QuintaYpua.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
