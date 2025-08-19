@@ -11,6 +11,10 @@ form.addEventListener('submit', function (e) {
     status: "Pré-Reserva",
     gastosExtras: [] 
   };
+  if (!novoCliente.quarto) {
+    alert('Por favor, selecione um quarto!');
+    return;
+  }
 
   const clientesExistentes = JSON.parse(localStorage.getItem('novosClientes')) || [];
   clientesExistentes.push(novoCliente);

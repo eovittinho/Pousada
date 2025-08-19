@@ -66,3 +66,6 @@ input[type="submit"]:hover {
 .reservation-item:last-child {
     border-bottom: none;
 }
+.modal-title {
+    color: #7c2f2f;
+}

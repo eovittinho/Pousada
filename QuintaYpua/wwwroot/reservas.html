@@ -38,8 +38,8 @@
 
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h1 class="text-center flex-grow-1">Gerenciador de Reservas</h1>
-      <button class="btn btn-success ms-3" data-bs-toggle="modal" data-bs-target="#modalCadastro">
-        ➕ Cadastrar Novo Cliente
+      <button class="btn btn-light ms-3 text-dark" data-bs-toggle="modal" data-bs-target="#modalCadastro">
+         Cadastrar Novo Cliente
       </button>
     </div>
 
@@ -116,7 +116,7 @@
       </ul>
     </div>
   </main>
-  <footer class="mt-auto py-3 text-center text-light" style="background-color: #001f33">
+  <footer class="mt-auto py-3 text-center text-light" style="background-color: #4b2e2e">
     &copy; 2025 Pousada Quinta do Ypuá. Todos os direitos reservados.
   </footer>
   <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer" style="z-index: 9999"></div>
@@ -240,7 +240,7 @@ window.onload = () => {
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content bg-dark text-light">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalCadastroLabel">Cadastrar Novo Cliente</h5>
+        <h5 class="modal-title" id="modalCadastroLabel" style="color: #7c2f2f !important;">Cadastrar Novo Cliente</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <form id="formCadastro">
@@ -261,9 +261,16 @@ window.onload = () => {
             <label for="telefone" class="form-label">Telefone</label>
             <input type="tel" class="form-control" id="telefone" />
           </div>
-          <div class="col-md-4">
-            <label for="quarto" class="form-label">Quarto</label>
-            <input type="text" class="form-control" id="quarto" required />
+          <div class="col-md-12">
+            <label class="form-label">Quarto</label>
+            <button type="button" class="btn btn-lg btn-gradient-primary mb-2 w-100 d-flex align-items-center justify-content-center gap-2 shadow" id="btnAbrirModalQuartos" style="background: linear-gradient(90deg,  0%, #00c6ff 100%); color: #fff; border: none; font-weight: bold; letter-spacing: 1px;">
+              <span style="display: flex; align-items: center; gap: 0.5rem; width: 100%; justify-content: center;">
+                <i class="bi bi-door-open" style="font-size: 2rem; color: #007bff; background: #eaf6ff; border-radius: 50%; padding: 0.4rem;"></i>
+                <span style="font-size: 1.2rem; color: #222; font-weight: 500;">Selecionar Quarto</span>
+              </span>
+            </button>
+            <input type="hidden" id="quarto" required />
+            <div id="quartoSelecionadoInfo" class="mb-2"></div>
           </div>
           <div class="col-md-4">
             <label for="checkin" class="form-label">Check-in</label>
@@ -279,14 +286,176 @@ window.onload = () => {
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-success">Salvar</button>
+          <button type="button" class="btn style="background-color:#f3e8d0 ; color: #fff data-bs-dismiss="modal">Cancelar</button>
+      <button type="submit" class="btn" style="background-color: #7c2f2f; color: #fff; border-radius: 6px; padding: 8px 16px; border: none;">
+  Salvar
+</button>
         </div>
       </form>
     </div>
   </div>
 </div>
 <script src="js/novosClientes.js"></script>
+<!-- Modal de seleção de quartos -->
+<div class="modal fade" id="modalQuartos" tabindex="-1" aria-labelledby="modalQuartosLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 900px;">
+    <div class="modal-content" style="background: #0a2340; color: #eaf6ff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);">
+      <div class="modal-header" style="background: #0a2340; border-bottom: 1px solid #1e3557;">
+        <h5 class="modal-title" id="modalQuartosLabel" style="color: #5bc0f8; font-weight: 600;">Selecione um Quarto</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" style="background: #f3e8d0;">
+        <div class="row g-4" id="listaQuartos"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const quartos = [
+  { numero: "101", valor: 200, descricao: "Quarto Standard com vista para o jardim.", foto: "img/quinta-removebg-preview.png" },
+  { numero: "102", valor: 210, descricao: "Quarto Standard com varanda privativa.", foto: "img/quinta-removebg-preview.png" },
+  { numero: "201", valor: 230, descricao: "Quarto Luxo com cama king size.", foto: "img/quinta-removebg-preview.png" },
+  { numero: "202", valor: 250, descricao: "Quarto Luxo com banheira de hidromassagem.", foto: "img/quinta-removebg-preview.png" },
+  { numero: "301", valor: 180, descricao: "Quarto Econômico, ideal para casais.", foto: "img/quinta-removebg-preview.png" },
+  { numero: "302", valor: 220, descricao: "Quarto Família com dois ambientes.", foto: "img/quinta-removebg-preview.png" }
+];
+const inputQuarto = document.getElementById('quarto');
+const info = document.getElementById('quartoSelecionadoInfo');
+const btnAbrirModal = document.getElementById('btnAbrirModalQuartos');
+const listaQuartos = document.createElement('div');
+
+btnAbrirModal.addEventListener('click', function() {
+  const container = document.getElementById('listaQuartos');
+  container.innerHTML = '';
+  quartos.forEach((q, idx) => {
+    // Fotos extras para simulação do carrossel
+    const fotos = [q.foto, 'img/quinta-removebg-preview.png', 'img/quinta-removebg-preview.png'];
+    const col = document.createElement('div');
+    col.className = 'col-md-4 mb-4';
+    col.innerHTML = `
+      <div class="card h-100 shadow-sm border-0 room-card" style="background: #0a2340; border-radius: 16px; color: #eaf6ff;">
+        <img src="${q.foto}" class="card-img-top" alt="Quarto ${q.numero}" style="height:160px; object-fit:cover; border-top-left-radius: 16px; border-top-right-radius: 16px; background: #18345c;">
+        <div class="card-body d-flex flex-column align-items-start" style="padding: 1.2rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <span style="font-size: 1.1rem; font-weight: 600; color: #5bc0f8;">Quarto ${q.numero}</span>
+            <span style="background: #18345c; color: #5bc0f8; border-radius: 12px; padding: 0.2rem 0.7rem; font-size: 1rem; font-weight: 500;">R$ ${q.valor.toFixed(2)}</span>
+          </div>
+          <p class="card-text" style="color: #eaf6ff; font-size: 1rem; margin-bottom: 1rem;">${q.descricao}</p>
+          <div class="d-flex w-100 gap-2 mt-auto">
+            <button class="btn btn-light flex-fill" style="border-radius: 8px; font-weight: 500; color: #0a2340; background: #5bc0f8; border: none;" type="button" data-select>Selecionar</button>
+            <button class="btn btn-outline-light flex-fill" style="border-radius: 8px; font-weight: 500; border: 1.5px solid #5bc0f8; color: #5bc0f8; background: transparent;" type="button" data-details>Ver detalhes</button>
+          </div>
+        </div>
+      </div>
+    `;
+    col.querySelector('[data-select]').onclick = () => {
+      inputQuarto.value = q.numero;
+      info.innerHTML = `<strong>Selecionado:</strong> Quarto ${q.numero} - R$ ${q.valor.toFixed(2)}<br><img src='${q.foto}' alt='Quarto ${q.numero}' style='width:60px; height:60px; object-fit:cover; border-radius:6px;'> <br><span>${q.descricao}</span>`;
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('modalQuartos')).hide();
+    };
+    col.querySelector('[data-details]').onclick = () => {
+      abrirDetalhesQuarto(q, fotos);
+    };
+    container.appendChild(col);
+  });
+// Modal/carrossel de detalhes do quarto
+function abrirDetalhesQuarto(quarto, fotos) {
+  let modal = document.getElementById('modalDetalhesQuarto');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.className = 'modal fade';
+    modal.id = 'modalDetalhesQuarto';
+    modal.tabIndex = -1;
+    modal.innerHTML = `
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 1100px;">
+        <div class="modal-content" style="background: #f8fafc; color: #222; border-radius: 22px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);">
+          <div class="modal-header" style="background: #fff; border-bottom: 1px solid #e0e0e0;">
+            <h5 class="modal-title" style="color: #007bff; font-weight: 700; font-size: 1.6rem;">Detalhes do Quarto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body p-4">
+              <div class="row g-4 align-items-stretch">
+              <div class="col-lg-7">
+                <div class="gallery-wrapper mb-3">
+                  <img id="mainFotoQuarto" src="${fotos[0]}" class="img-fluid w-100" style="height: 370px; object-fit: cover; border-radius: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.10);" alt="Foto Quarto ${quarto.numero}">
+                  <div class="d-flex gap-2 mt-3 flex-nowrap overflow-auto" style="max-width: 100%;">
+                    ${fotos.map((f, i) => `
+                      <img src="${f}" class="img-thumbnail" style="height: 70px; width: 110px; object-fit: cover; border-radius: 10px; cursor: pointer; border: 2px solid ${i === 0 ? '#007bff' : '#e0e0e0'}; transition: border 0.2s;" onclick="document.getElementById('mainFotoQuarto').src='${f}'; Array.from(this.parentNode.children).forEach(img=>img.style.border='2px solid #e0e0e0'); this.style.border='2px solid #007bff';" alt="Miniatura ${i+1}">
+                    `).join('')}
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5 d-flex flex-column justify-content-center">
+                <h3 style="color: #007bff; font-weight: 700;">Quarto ${quarto.numero}</h3>
+                <div style="font-size: 1.25rem; color: #444; margin-bottom: 1rem;">${quarto.descricao}</div>
+                <div style="font-size: 1.5rem; font-weight: 700; color: #007bff; margin-bottom: 1.5rem;">R$ ${quarto.valor.toFixed(2)}</div>
+                <button class="btn btn-primary w-100" style="font-size: 1.1rem; border-radius: 10px; font-weight: 600;" onclick="selecionarQuartoDireto('${quarto.numero}')">Selecionar este quarto</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+      modal.innerHTML = `
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 1100px;">
+          <div class="modal-content" style="background: #0a2340; color: #eaf6ff; border-radius: 22px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);">
+            <div class="modal-header" style="background: #0a2340; border-bottom: 1px solid #1e3557;">
+              <h5 class="modal-title" style="color: #5bc0f8; font-weight: 700; font-size: 1.6rem;">Detalhes do Quarto</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+              <div class="row g-4 align-items-stretch">
+                <div class="col-lg-7 d-flex flex-column justify-content-center">
+                  <div class="gallery-wrapper mb-3">
+                    <img id="mainFotoQuarto" src="${fotos[0]}" class="img-fluid w-100" style="height: 370px; object-fit: cover; border-radius: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.10); background: #18345c;" alt="Foto Quarto ${quarto.numero}">
+                    <div class="d-flex gap-2 mt-3 flex-nowrap overflow-auto" style="max-width: 100%;">
+                      ${fotos.map((f, i) => `
+                        <img src="${f}" class="img-thumbnail" style="height: 70px; width: 110px; object-fit: cover; border-radius: 10px; cursor: pointer; border: 2px solid ${i === 0 ? '#5bc0f8' : '#1e3557'}; transition: border 0.2s; background: #0a2340;" onclick="document.getElementById('mainFotoQuarto').src='${f}'; Array.from(this.parentNode.children).forEach(img=>img.style.border='2px solid #1e3557'); this.style.border='2px solid #5bc0f8';" alt="Miniatura ${i+1}">
+                      `).join('')}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-5 d-flex flex-column justify-content-center p-4" style="background: #18345c; border-radius: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.04);">
+                  <h3 style="color: #5bc0f8; font-weight: 700;">Quarto ${quarto.numero}</h3>
+                  <div style="font-size: 1.25rem; color: #eaf6ff; margin-bottom: 1rem;">${quarto.descricao}</div>
+                  <div style="font-size: 1.5rem; font-weight: 700; color: #5bc0f8; margin-bottom: 1.5rem;">R$ ${quarto.valor.toFixed(2)}</div>
+                  <button class="btn btn-light w-100" style="font-size: 1.1rem; border-radius: 10px; font-weight: 600; color: #0a2340; background: #5bc0f8; border: none;" onclick="selecionarQuartoDireto('${quarto.numero}')">Selecionar este quarto</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    document.body.appendChild(modal);
+  } else {
+    // Atualiza galeria e dados
+    modal.querySelector('#mainFotoQuarto').src = fotos[0];
+    const thumbs = fotos.map((f, i) => `
+      <img src="${f}" class="img-thumbnail" style="height: 70px; width: 110px; object-fit: cover; border-radius: 10px; cursor: pointer; border: 2px solid ${i === 0 ? '#007bff' : '#e0e0e0'}; transition: border 0.2s;" onclick="document.getElementById('mainFotoQuarto').src='${f}'; Array.from(this.parentNode.children).forEach(img=>img.style.border='2px solid #e0e0e0'); this.style.border='2px solid #007bff';" alt="Miniatura ${i+1}">
+    `).join('');
+    modal.querySelector('.gallery-wrapper .d-flex').innerHTML = thumbs;
+    modal.querySelector('h3').textContent = `Quarto ${quarto.numero}`;
+    modal.querySelector('div[style*="font-size: 1.25rem"]') && (modal.querySelector('div[style*="font-size: 1.25rem"]').textContent = quarto.descricao);
+    modal.querySelector('div[style*="font-size: 1.5rem"]') && (modal.querySelector('div[style*="font-size: 1.5rem"]').textContent = `R$ ${quarto.valor.toFixed(2)}`);
+    modal.querySelector('button.btn-primary').setAttribute('onclick', `selecionarQuartoDireto('${quarto.numero}')`);
+  }
+  bootstrap.Modal.getOrCreateInstance(modal).show();
+}
+
+function selecionarQuartoDireto(numero) {
+  const q = quartos.find(q => q.numero == numero);
+  if (q) {
+    document.getElementById('quarto').value = q.numero;
+    document.getElementById('quartoSelecionadoInfo').innerHTML = `<strong>Selecionado:</strong> Quarto ${q.numero} - R$ ${q.valor.toFixed(2)}<br><img src='${q.foto}' alt='Quarto ${q.numero}' style='width:60px; height:60px; object-fit:cover; border-radius:6px;'> <br><span>${q.descricao}</span>`;
+    const modal = document.getElementById('modalDetalhesQuarto');
+    if (modal) bootstrap.Modal.getOrCreateInstance(modal).hide();
+    const modalQ = document.getElementById('modalQuartos');
+    if (modalQ) bootstrap.Modal.getOrCreateInstance(modalQ).hide();
+  }
+}
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('modalQuartos')).show();
+});
+</script>
 <script>
 const form = document.getElementById('formCadastro');
 form.addEventListener('submit', function (e) {
@@ -299,10 +468,13 @@ form.addEventListener('submit', function (e) {
     status: "Pré-Reserva",
     gastosExtras: [] 
   };
+  if (!novoCliente.quarto) {
+    showToast('Por favor, selecione um quarto!', 'danger');
+    return;
+  }
   const clientesExistentes = JSON.parse(localStorage.getItem('novosClientes')) || [];
   clientesExistentes.push(novoCliente);
   localStorage.setItem('novosClientes', JSON.stringify(clientesExistentes));
-
   window.location.href = "reservas.html";
 });
 </script>
