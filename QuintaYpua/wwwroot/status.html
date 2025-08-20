@@ -97,25 +97,25 @@
   <script>
     // Produtos disponíveis
     const produtos = [
-  { descricao: "Água Mineral", valor: 5 },
-  { descricao: "Café da Manhã", valor: 20 },
-  { descricao: "Almoço Buffet", valor: 35 },
-  { descricao: "Jantar à la carte", valor: 50 },
-  { descricao: "Serviço de Lavanderia (peça)", valor: 15 },
-  { descricao: "Wi-Fi Premium", valor: 10 },
-  { descricao: "Aluguel de Bicicleta", valor: 25 },
-  { descricao: "Passeio Guiado (meio-dia)", valor: 80 },
-  { descricao: "Massagem Relaxante", valor: 90 },
-  { descricao: "Estacionamento (diária)", valor: 15 },
-  { descricao: "Acesso à Piscina Aquecida", valor: 20 },
-  { descricao: "Serviço de Concierge", valor: 25 },
-  { descricao: "Transfer para a Praia", valor: 40 },
-  { descricao: "Kit de Praia (toalha, guarda-sol, cadeira)", valor: 25 },
-  { descricao: "Mini Bar (por item)", valor: 8 },
-  { descricao: "Transporte Aeroporto", valor: 60 },
-  { descricao: "Serviço de Quarto", valor: 30 },
-  { descricao: "Tour Cultural", valor: 100 },
-];
+      { descricao: "Água Mineral", valor: 5 },
+      { descricao: "Café da Manhã", valor: 20 },
+      { descricao: "Almoço Buffet", valor: 35 },
+      { descricao: "Jantar à la carte", valor: 50 },
+      { descricao: "Serviço de Lavanderia (peça)", valor: 15 },
+      { descricao: "Wi-Fi Premium", valor: 10 },
+      { descricao: "Aluguel de Bicicleta", valor: 25 },
+      { descricao: "Passeio Guiado (meio-dia)", valor: 80 },
+      { descricao: "Massagem Relaxante", valor: 90 },
+      { descricao: "Estacionamento (diária)", valor: 15 },
+      { descricao: "Acesso à Piscina Aquecida", valor: 20 },
+      { descricao: "Serviço de Concierge", valor: 25 },
+      { descricao: "Transfer para a Praia", valor: 40 },
+      { descricao: "Kit de Praia (toalha, guarda-sol, cadeira)", valor: 25 },
+      { descricao: "Mini Bar (por item)", valor: 8 },
+      { descricao: "Transporte Aeroporto", valor: 60 },
+      { descricao: "Serviço de Quarto", valor: 30 },
+      { descricao: "Tour Cultural", valor: 100 },
+    ];
 
     const precosQuartos = { "101": 200, "202": 250, "303": 180, "404": 220 };
     const clientesAntigos = [
@@ -124,9 +124,9 @@
       { id: 1003, nome: "Ana Costa", status: "Cancelado", quarto: "303", gastosExtras: [] },
       { id: 1004, nome: "Lucas Alves", status: "Hospedado", quarto: "404", gastosExtras: [] }
     ];
-    const novosClientes = JSON.parse(localStorage.getItem('novosClientes')) || [];
-    let contadorReservas = 1005;
+
     const tbody = document.querySelector('#tabelaStatus tbody');
+    let contadorReservas = 1005;
 
     // Preencher select de produtos
     const selectProdutos = document.getElementById('produtoGasto');
@@ -137,39 +137,11 @@
       selectProdutos.appendChild(opt);
     });
 
-    function abrirModalDetalhes(cliente, idReserva, isNovoCliente = false) {
-      let clienteAtual = cliente;
-      let gastosExtras = [];
-
-      if (isNovoCliente) {
-        const clientes = JSON.parse(localStorage.getItem('novosClientes')) || [];
-        clienteAtual = clientes.find(c => c.nome === cliente.nome && c.quarto === cliente.quarto && c.checkin === cliente.checkin && c.checkout === cliente.checkout) || cliente;
-        gastosExtras = clienteAtual.gastosExtras || [];
-      } else {
-        const key = 'gastosExtrasAntigos_' + idReserva;
-        gastosExtras = JSON.parse(localStorage.getItem(key)) || [];
-      }
-
-      document.getElementById('detalhesCliente').innerHTML = `
-        <strong>ID Reserva:</strong> ${idReserva}<br>
-        <strong>Nome:</strong> ${clienteAtual.nome}<br>
-        <strong>Quarto:</strong> ${clienteAtual.quarto || 'Não informado'}<br>
-        <strong>Preço do Quarto:</strong> ${precosQuartos[clienteAtual.quarto] ? 'R$ ' + precosQuartos[clienteAtual.quarto].toFixed(2) : 'Não informado'}<br>
-        <strong>Status:</strong> ${clienteAtual.status}<br>
-      `;
-      renderizarGastosExtras(gastosExtras);
-      window.clienteModal = { cliente: clienteAtual, idReserva, isNovoCliente };
-      document.getElementById('quantidadeGasto').value = 1;
-      selectProdutos.value = "";
-
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('modalDetalhes')).show();
-    }
-
+    // Função para renderizar gastos extras
     function renderizarGastosExtras(gastosExtras) {
       const container = document.getElementById('listaGastosExtrasContainer');
       container.innerHTML = '';
       let total = 0;
-
       if (gastosExtras.length > 0) {
         gastosExtras.forEach((g, i) => {
           const subtotal = g.valor * (g.quantidade || 1);
@@ -187,42 +159,114 @@
       } else {
         container.innerHTML = '<em>Sem gastos extras registrados.</em>';
       }
-
       document.getElementById('totalGastosExtras').textContent = 'Total: R$ ' + total.toFixed(2);
     }
 
-    // Adicionar clientes antigos
-    clientesAntigos.forEach(cliente => {
-      let badgeClass = cliente.status === 'Confirmado' ? 'bg-success' :
-                       cliente.status === 'Pré-Reserva' ? 'bg-warning text-dark' :
-                       cliente.status === 'Cancelado' ? 'bg-danger' : 'bg-primary';
+    // Abrir modal de detalhes
+    function abrirModalDetalhes(cliente) {
+      const clientesNovos = JSON.parse(localStorage.getItem('clientes')) || [];
+      let isNovoCliente = cliente.id >= 1005;
+      let gastosExtras = cliente.gastosExtras || [];
 
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${cliente.id}</td>
-        <td>${cliente.nome}</td>
-        <td><span class="badge ${badgeClass}">${cliente.status}</span></td>
-        <td><button class="btn btn-sm btn-light" onclick="abrirModalDetalhes(clientesAntigos[${cliente.id - 1001}], ${cliente.id}, false)">Ver Detalhes</button></td>
+      if (isNovoCliente) {
+        const idx = clientesNovos.findIndex(c => c.nome === cliente.nome && c.quarto === cliente.quarto && c.checkin === cliente.checkin && c.checkout === cliente.checkout);
+        if (idx !== -1) {
+          cliente = clientesNovos[idx];
+          gastosExtras = cliente.gastosExtras || [];
+        }
+      } else {
+        const key = 'gastosExtrasAntigos_' + cliente.id;
+        gastosExtras = JSON.parse(localStorage.getItem(key)) || [];
+      }
+
+      document.getElementById('detalhesCliente').innerHTML = `
+        <strong>ID Reserva:</strong> ${cliente.id}<br>
+        <strong>Nome:</strong> ${cliente.nome}<br>
+        <strong>Quarto:</strong> ${cliente.quarto || 'Não informado'}<br>
+        <strong>Preço do Quarto:</strong> ${precosQuartos[cliente.quarto] ? 'R$ ' + precosQuartos[cliente.quarto].toFixed(2) : 'Não informado'}<br>
+        <strong>Status:</strong> ${cliente.status}<br>
       `;
-      tbody.appendChild(tr);
+      renderizarGastosExtras(gastosExtras);
+
+      window.clienteModal = { cliente, isNovoCliente };
+      document.getElementById('quantidadeGasto').value = 1;
+      selectProdutos.value = "";
+
+      bootstrap.Modal.getOrCreateInstance(document.getElementById('modalDetalhes')).show();
+    }
+
+    // Excluir gasto extra
+    function excluirGastoExtra(idx) {
+      const { cliente, isNovoCliente } = window.clienteModal;
+      if (isNovoCliente) {
+        const clientesNovos = JSON.parse(localStorage.getItem('clientes')) || [];
+        const idxC = clientesNovos.findIndex(c => c.nome === cliente.nome && c.quarto === cliente.quarto && c.checkin === cliente.checkin && c.checkout === cliente.checkout);
+        if (idxC !== -1) {
+          clientesNovos[idxC].gastosExtras.splice(idx, 1);
+          localStorage.setItem('clientes', JSON.stringify(clientesNovos));
+          renderizarGastosExtras(clientesNovos[idxC].gastosExtras);
+        }
+      } else {
+        const key = 'gastosExtrasAntigos_' + cliente.id;
+        let arr = JSON.parse(localStorage.getItem(key)) || [];
+        arr.splice(idx, 1);
+        localStorage.setItem(key, JSON.stringify(arr));
+        renderizarGastosExtras(arr);
+      }
+    }
+
+    // Adicionar gasto extra
+    document.getElementById('formGastoExtra').addEventListener('submit', function(e){
+      e.preventDefault();
+      const idxProduto = parseInt(selectProdutos.value);
+      const quantidade = parseInt(document.getElementById('quantidadeGasto').value) || 1;
+      if (isNaN(idxProduto)) return;
+      const produto = produtos[idxProduto];
+      const { cliente, isNovoCliente } = window.clienteModal;
+
+      if (isNovoCliente) {
+        const clientesNovos = JSON.parse(localStorage.getItem('clientes')) || [];
+        const idxC = clientesNovos.findIndex(c => c.nome === cliente.nome && c.quarto === cliente.quarto && c.checkin === cliente.checkin && c.checkout === cliente.checkout);
+        if (idxC !== -1) {
+          if (!Array.isArray(clientesNovos[idxC].gastosExtras)) clientesNovos[idxC].gastosExtras = [];
+          clientesNovos[idxC].gastosExtras.push({ descricao: produto.descricao, valor: produto.valor, quantidade });
+          localStorage.setItem('clientes', JSON.stringify(clientesNovos));
+          renderizarGastosExtras(clientesNovos[idxC].gastosExtras);
+        }
+      } else {
+        const key = 'gastosExtrasAntigos_' + cliente.id;
+        let arr = JSON.parse(localStorage.getItem(key)) || [];
+        arr.push({ descricao: produto.descricao, valor: produto.valor, quantidade });
+        localStorage.setItem(key, JSON.stringify(arr));
+        renderizarGastosExtras(arr);
+      }
+
+      selectProdutos.value = "";
+      document.getElementById('quantidadeGasto').value = 1;
     });
 
-    // Adicionar novos clientes
-    novosClientes.forEach((cliente, idx) => {
-      const idReserva = contadorReservas + idx;
-      let badgeClass = cliente.status === 'Confirmado' ? 'bg-success' :
-                       cliente.status === 'Pré-Reserva' ? 'bg-warning text-dark' :
-                       cliente.status === 'Cancelado' ? 'bg-danger' : 'bg-primary';
+    // Renderizar tabela de status
+    function carregarTabelaStatus() {
+      tbody.innerHTML = '';
+      const clientesNovos = JSON.parse(localStorage.getItem('clientes')) || [];
+      const todosClientes = [...clientesAntigos, ...clientesNovos.map((c, idx) => {
+        return { ...c, id: contadorReservas + idx };
+      })];
 
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${idReserva}</td>
-        <td>${cliente.nome}</td>
-        <td><span class="badge ${badgeClass}">${cliente.status}</span></td>
-        <td><button class="btn btn-sm btn-light" onclick="abrirModalDetalhes(JSON.parse(localStorage.getItem('novosClientes'))[${idx}], ${idReserva}, true)">Ver Detalhes</button></td>
-      `;
-      tbody.appendChild(tr);
-    });
+      todosClientes.forEach(cliente => {
+        let badgeClass = cliente.status === 'Confirmado' ? 'bg-success' :
+                         cliente.status === 'Pré-Reserva' ? 'bg-warning text-dark' :
+                         cliente.status === 'Cancelado' ? 'bg-danger' : 'bg-primary';
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${cliente.id}</td>
+          <td>${cliente.nome}</td>
+          <td><span class="badge ${badgeClass}">${cliente.status}</span></td>
+          <td><button class="btn btn-sm btn-light" onclick='abrirModalDetalhes(${JSON.stringify(cliente)})'>Ver Detalhes</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
 
     // FILTROS / PAGINAÇÃO
     let paginaAtual = 1;
@@ -260,58 +304,11 @@
     }
 
     document.getElementById('filtroNome').addEventListener('input', filtrarTabela);
-    window.onload = filtrarTabela;
 
-    // Adicionar gasto extra
-    document.getElementById('formGastoExtra').addEventListener('submit', function(e){
-      e.preventDefault();
-      const idxProduto = parseInt(document.getElementById('produtoGasto').value);
-      const quantidade = parseInt(document.getElementById('quantidadeGasto').value) || 1;
-      if (isNaN(idxProduto)) return;
-
-      const produto = produtos[idxProduto];
-      const { isNovoCliente, cliente, idReserva } = window.clienteModal;
-
-      if (isNovoCliente) {
-        let clientes = JSON.parse(localStorage.getItem('novosClientes')) || [];
-        const idx = clientes.findIndex(c => c.nome === cliente.nome && c.quarto === cliente.quarto && c.checkin === cliente.checkin && c.checkout === cliente.checkout);
-        if (idx !== -1) {
-          if (!Array.isArray(clientes[idx].gastosExtras)) clientes[idx].gastosExtras = [];
-          clientes[idx].gastosExtras.push({ descricao: produto.descricao, valor: produto.valor, quantidade });
-          localStorage.setItem('novosClientes', JSON.stringify(clientes));
-          renderizarGastosExtras(clientes[idx].gastosExtras);
-        }
-      } else {
-        const key = 'gastosExtrasAntigos_' + idReserva;
-        let arr = JSON.parse(localStorage.getItem(key)) || [];
-        arr.push({ descricao: produto.descricao, valor: produto.valor, quantidade });
-        localStorage.setItem(key, JSON.stringify(arr));
-        renderizarGastosExtras(arr);
-      }
-
-      document.getElementById('produtoGasto').value = "";
-      document.getElementById('quantidadeGasto').value = 1;
-    });
-
-    function excluirGastoExtra(idx) {
-      const { isNovoCliente, cliente, idReserva } = window.clienteModal;
-
-      if (isNovoCliente) {
-        let clientes = JSON.parse(localStorage.getItem('novosClientes')) || [];
-        const cIdx = clientes.findIndex(c => c.nome === cliente.nome && c.quarto === cliente.quarto && c.checkin === cliente.checkin && c.checkout === cliente.checkout);
-        if (cIdx !== -1) {
-          clientes[cIdx].gastosExtras.splice(idx, 1);
-          localStorage.setItem('novosClientes', JSON.stringify(clientes));
-          renderizarGastosExtras(clientes[cIdx].gastosExtras);
-        }
-      } else {
-        const key = 'gastosExtrasAntigos_' + idReserva;
-        let arr = JSON.parse(localStorage.getItem(key)) || [];
-        arr.splice(idx, 1);
-        localStorage.setItem(key, JSON.stringify(arr));
-        renderizarGastosExtras(arr);
-      }
-    }
+    window.onload = () => {
+      carregarTabelaStatus();
+      filtrarTabela();
+    };
   </script>
 </body>
 </html>

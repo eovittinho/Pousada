@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\Pousada\\QuintaYpua\\QuintaYpua.csproj": {}
+    "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\QuintaYpua.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\Pousada\\QuintaYpua\\QuintaYpua.csproj": {
+    "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\QuintaYpua.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\Pousada\\QuintaYpua\\QuintaYpua.csproj",
+        "projectUniqueName": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\QuintaYpua.csproj",
         "projectName": "QuintaYpua",
-        "projectPath": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\Pousada\\QuintaYpua\\QuintaYpua.csproj",
+        "projectPath": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\QuintaYpua.csproj",
         "packagesPath": "C:\\Users\\Alunos\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\Pousada\\QuintaYpua\\obj\\",
+        "outputPath": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Alunos\\AppData\\Roaming\\NuGet\\NuGet.Config"
