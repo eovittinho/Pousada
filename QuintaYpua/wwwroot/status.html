@@ -253,15 +253,49 @@
         return { ...c, id: contadorReservas + idx };
       })];
 
+      const hoje = new Date();
+      hoje.setHours(0,0,0,0);
       todosClientes.forEach(cliente => {
-        let badgeClass = cliente.status === 'Confirmado' ? 'bg-success' :
-                         cliente.status === 'Pré-Reserva' ? 'bg-warning text-dark' :
-                         cliente.status === 'Cancelado' ? 'bg-danger' : 'bg-primary';
+        let status = cliente.status;
+        let badgeClass = 'bg-primary';
+        if (cliente.status === undefined || cliente.status === null) {
+          // Lógica baseada em datas
+          if (cliente.cancelado) {
+            status = 'Cancelado';
+            badgeClass = 'bg-danger';
+          } else if (cliente.checkin && cliente.checkout) {
+            const checkin = new Date(cliente.checkin);
+            const checkout = new Date(cliente.checkout);
+            checkin.setHours(0,0,0,0);
+            checkout.setHours(0,0,0,0);
+            if (hoje < checkin) {
+              status = 'Pré-Reserva';
+              badgeClass = 'bg-warning text-dark';
+            } else if (hoje.getTime() === checkin.getTime()) {
+              status = 'Pré-Reservado';
+              badgeClass = 'bg-success';
+            } else if (hoje > checkin && hoje <= checkout) {
+              status = 'Hospedado';
+              badgeClass = 'bg-primary';
+            } else if (hoje > checkout) {
+              status = 'Cancelado';
+              badgeClass = 'bg-danger';
+            }
+          } else {
+            status = 'Pré-Reserva';
+            badgeClass = 'bg-warning text-dark';
+          }
+        } else {
+          badgeClass = status === 'Confirmado' ? 'bg-success' :
+                       status === 'Pré-Reservado' ? 'bg-warning text-dark' :
+                       status === 'Cancelado' ? 'bg-danger' :
+                       status === 'Hospedado' ? 'bg-primary' : 'bg-secondary';
+        }
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${cliente.id}</td>
           <td>${cliente.nome}</td>
-          <td><span class="badge ${badgeClass}">${cliente.status}</span></td>
+          <td><span class="badge ${badgeClass}">${status}</span></td>
           <td><button class="btn btn-sm btn-light" onclick='abrirModalDetalhes(${JSON.stringify(cliente)})'>Ver Detalhes</button></td>
         `;
         tbody.appendChild(tr);
