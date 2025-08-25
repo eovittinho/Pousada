@@ -1,12 +1,10 @@
 namespace QuintaYpua.Models
 {
-    public class Quarto
+    public class FormaPagamento
     {
         public int Id { get; set; }
-        public string Numero { get; set; } = string.Empty;
-        public decimal Valor { get; set; }
+        public string Nome { get; set; } = string.Empty;
         public string? Descricao { get; set; }
-        public string? FotoBase64 { get; set; }
         public ICollection<Reserva>? Reservas { get; set; }
     }
 }

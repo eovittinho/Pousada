@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gerenciador de Reservas - Quinta do Ypuá</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg custom-navbar px-3">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="index.html">Pousada Quinta do Ypuá</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 align-items-center gap-2">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">🏠 Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="reservas.html">📅 Reservas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="status.html">🛏️ Status</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-outline-light btn-sm" href="index.html">Sair</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container-fluid px-4 pt-4 pb-2 flex-grow-1">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="text-center flex-grow-1">Gerenciador de Reservas</h1>
+      <button class="btn btn-light ms-3 text-dark" data-bs-toggle="modal" data-bs-target="#modalCadastro">Cadastrar Novo Cliente</button>
+    </div>
+
+    <div class="row mb-4 filtros">
+      <div class="col-md-4 mb-2">
+        <input type="text" id="filtroNome" class="form-control" placeholder="🔍 Buscar por nome ou quarto" />
+      </div>
+      <div class="col-md-4 mb-2">
+        <input type="date" id="filtroCheckin" class="form-control" placeholder="Filtrar por Check-in" />
+      </div>
+      <div class="col-md-4 mb-2">
+        <button class="btn btn-outline-secondary w-100" onclick="window.print()">Imprimir Página</button>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered text-white align-middle" id="tabelaReservas">
+          <thead>
+            <tr>
+              <th>Reserva #</th>
+              <th>Nome do Hóspede</th>
+              <th>Quarto</th>
+              <th>Check-in</th>
+              <th>Check-out</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Reservas serão preenchidas dinamicamente pelo JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <h5>Ajuda</h5>
+      <ul>
+        <li>Use o campo de busca para filtrar reservas por nome ou quarto.</li>
+        <li>Clique em "Imprimir Página" para gerar uma versão para impressão.</li>
+        <li>Cadastre novos clientes usando o botão "Cadastrar Cliente".</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="mt-auto py-3 text-center text-light" style="background-color:#4b2e2e">&copy; 2025 Pousada Quinta do Ypuá. Todos os direitos reservados.</footer>
+
+  <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer" style="z-index:9999"></div>
+
+  <!-- Modal Cadastro -->
+  <div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="modalCadastroLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalCadastroLabel" style="color:#7c2f2f">Cadastrar Novo Cliente</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="formCadastro">
+          <div class="modal-body row g-0">
+            <div class="col-md-6"><label class="form-label">Nome</label><input type="text" class="form-control" id="nome" required></div>
+            <div class="col-md-6"><label class="form-label">CPF</label><input type="text" class="form-control" id="cpf" required></div>
+            <div class="col-md-6"><label class="form-label">E-mail</label><input type="email" class="form-control" id="email"></div>
+            <div class="col-md-6"><label class="form-label">Telefone</label><input type="tel" class="form-control" id="telefone"></div>
+            <div class="col-md-12">
+              <label class="form-label">Quarto</label>
+              <button type="button" id="btnAbrirModalQuartos"
+                      class="btn btn-lg mb-2 w-100 d-flex align-items-center justify-content-center gap-2 shadow"
+                      style="background:#4b2e2e; color:#fff; border:none; font-weight:bold; letter-spacing:1px;">
+                <i class="bi bi-door-open" style="font-size:2rem;color:#4b2e2e;background:#f8fafc;border-radius:50%;padding:0.4rem;"></i>
+                <span style="color:#4b2e2e;font-weight:500;">Selecionar Quarto</span>
+              </button>
+              <input type="hidden" id="quarto" required/>
+              <div id="quartoSelecionadoInfo" class="mb-2"></div>
+              <button type="button" id="btnRemoverQuarto" class="btn btn-outline-danger btn-sm d-none">Remover seleção de quarto</button>
+            </div>
+            <div class="col-md-4"><label class="form-label">Check-in</label><input type="date" class="form-control" id="checkin" required></div>
+            <div class="col-md-4"><label class="form-label">Check-out</label><input type="date" class="form-control" id="checkout" required></div>
+            <div class="col-12"><label class="form-label">Observações</label><textarea id="observacoes" class="form-control" rows="3"></textarea></div>
+            <div class="col-md-6 mt-2">
+              <label class="form-label">Forma de Pagamento</label>
+              <div class="nav nav-tabs mb-2 border-0 gap-2" id="tabPagamento" role="tablist" style="background:transparent;">
+                <button class="nav-link active shadow-sm border-0 d-flex flex-column align-items-center py-3 px-4 rounded-4" id="tab-dinheiro" data-bs-toggle="tab" data-bs-target="#pag-dinheiro" type="button" role="tab" aria-controls="pag-dinheiro" aria-selected="true" style="background:#f8fafc;transition:all .2s;">
+                  <i class="bi bi-cash-coin mb-1" style="font-size:2.1rem;color:#4b2e2e;"></i>
+                  <span style="font-weight:600;color:#4b2e2e;">Dinheiro</span>
+                </button>
+                <button class="nav-link shadow-sm border-0 d-flex flex-column align-items-center py-3 px-4 rounded-4" id="tab-pix" data-bs-toggle="tab" data-bs-target="#pag-pix" type="button" role="tab" aria-controls="pag-pix" aria-selected="false" style="background:#f8fafc;transition:all .2s;">
+                  <i class="bi bi-qr-code mb-1" style="font-size:2.1rem;color:#0d9488;"></i>
+                  <span style="font-weight:600;color:#0d9488;">Pix</span>
+                </button>
+                <button class="nav-link shadow-sm border-0 d-flex flex-column align-items-center py-3 px-4 rounded-4" id="tab-credito" data-bs-toggle="tab" data-bs-target="#pag-credito" type="button" role="tab" aria-controls="pag-credito" aria-selected="false" style="background:#f8fafc;transition:all .2s;">
+                  <i class="bi bi-credit-card-2-front mb-1" style="font-size:2.1rem;color:#7c2f2f;"></i>
+                  <span style="font-weight:600;color:#7c2f2f;">Crédito</span>
+                </button>
+                <button class="nav-link shadow-sm border-0 d-flex flex-column align-items-center py-3 px-4 rounded-4" id="tab-debito" data-bs-toggle="tab" data-bs-target="#pag-debito" type="button" role="tab" aria-controls="pag-debito" aria-selected="false" style="background:#f8fafc;transition:all .2s;">
+                  <i class="bi bi-credit-card mb-1" style="font-size:2.1rem;color:#a16207;"></i>
+                  <span style="font-weight:600;color:#a16207;">Débito</span>
+                </button>
+              </div>
+              <div class="tab-content border-0 rounded-4 p-4 bg-white shadow-sm" id="tabPagamentoContent" style="min-height:80px;">
+                <div class="tab-pane fade show active" id="pag-dinheiro" role="tabpanel" aria-labelledby="tab-dinheiro">
+                  <input type="hidden" id="formaPagamento" value="Dinheiro" required>
+                  <span class="d-flex align-items-center gap-2"><i class="bi bi-cash-coin" style="font-size:1.5rem;color:#4b2e2e;"></i> Pagamento em dinheiro na recepção.</span>
+                </div>
+                <div class="tab-pane fade" id="pag-pix" role="tabpanel" aria-labelledby="tab-pix">
+                  <input type="hidden" id="formaPagamentoPix" value="Pix">
+                  <span class="d-flex align-items-center gap-2"><i class="bi bi-qr-code" style="font-size:1.5rem;color:#0d9488;"></i> Pagamento via Pix. O QR code será gerado após o cadastro.</span>
+                </div>
+                <div class="tab-pane fade" id="pag-credito" role="tabpanel" aria-labelledby="tab-credito">
+                  <input type="hidden" id="formaPagamentoCredito" value="Cartão de Crédito">
+                  <span class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-credit-card-2-front" style="font-size:1.5rem;color:#7c2f2f;"></i> Cartão de crédito (até 12x sem juros).</span>
+                  <button type="button" class="btn btn-outline-primary btn-sm" id="btnConfigCartaoCredito">Configurar Cartão</button>
+                </div>
+                <div class="tab-pane fade" id="pag-debito" role="tabpanel" aria-labelledby="tab-debito">
+                  <input type="hidden" id="formaPagamentoDebito" value="Cartão de Débito">
+                  <span class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-credit-card" style="font-size:1.5rem;color:#a16207;"></i> Cartão de débito.</span>
+                  <button type="button" class="btn btn-outline-primary btn-sm" id="btnConfigCartaoDebito">Configurar Cartão</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" data-bs-dismiss="modal" style="background:#f8fafc;color:#4b2e2e;border:none">Cancelar</button>
+            <button type="submit" class="btn" style="background:#7c2f2f;color:#fff;border:none;border-radius:6px;padding:8px 16px;">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Quartos -->
+  <div class="modal fade" id="modalQuartos" tabindex="-1" aria-labelledby="modalQuartosLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:900px;">
+      <div class="modal-content" style="background:#f8fafc;color:#4b2e2e;border-radius:18px;">
+        <div class="modal-header" style="background:#4b2e2e;border-bottom:none;">
+          <h5 class="modal-title" style="color:#fff;font-weight:600;">Selecione um Quarto</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body bg-white">
+          <div id="listaQuartos" class="row g-4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Cartão Crédito/Débito CORRIGIDO -->
+  <div class="modal fade" id="modalCartao" tabindex="-1" aria-labelledby="modalCartaoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalCartaoLabel">Dados do Cartão</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formCartao">
+            <div class="row g-3">
+              <div class="col-12">
+                <label class="form-label">Número do Cartão</label>
+                <input type="text" class="form-control" id="modalCartaoNumero" maxlength="19" placeholder="0000 0000 0000 0000" required>
+                <div class="invalid-feedback">Por favor, insira um número de cartão válido.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Validade</label>
+                <input type="text" class="form-control" id="modalCartaoValidade" maxlength="5" placeholder="MM/AA" required>
+                <div class="invalid-feedback">Por favor, insira uma data válida (MM/AA).</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">CVV</label>
+                <input type="text" class="form-control" id="modalCartaoCVV" maxlength="4" placeholder="CVV" required>
+                <div class="invalid-feedback">Por favor, insira o CVV.</div>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Nome impresso no cartão</label>
+                <input type="text" class="form-control" id="modalCartaoNome" maxlength="40" placeholder="Nome completo" required>
+                <div class="invalid-feedback">Por favor, insira o nome do portador.</div>
+              </div>
+              <div class="col-12" id="grupoParcelas" style="display:none;">
+                <label class="form-label">Parcelas</label>
+                <select class="form-select" id="modalCartaoParcelas">
+                  <option value="1">1x sem juros</option>
+                  <option value="2">2x sem juros</option>
+                  <option value="3">3x sem juros</option>
+                  <option value="4">4x sem juros</option>
+                  <option value="5">5x sem juros</option>
+                  <option value="6">6x sem juros</option>
+                  <option value="7">7x sem juros</option>
+                  <option value="8">8x sem juros</option>
+                  <option value="9">9x sem juros</option>
+                  <option value="10">10x sem juros</option>
+                  <option value="11">11x sem juros</option>
+                  <option value="12">12x sem juros</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btnSalvarCartao">Salvar Dados</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+// Variáveis globais para armazenar dados do cartão
+let dadosCartao = {
+  numero: '',
+  validade: '',
+  cvv: '',
+  nome: '',
+  parcelas: 1,
+  tipo: ''
+};
+
+// Formatação automática dos campos do cartão
+document.addEventListener('DOMContentLoaded', function() {
+  // Formatação do número do cartão
+  const numeroCartao = document.getElementById('modalCartaoNumero');
+  if (numeroCartao) {
+    numeroCartao.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+      let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+      e.target.value = formattedValue;
+    });
+  }
+
+  // Formatação da validade
+  const validadeCartao = document.getElementById('modalCartaoValidade');
+  if (validadeCartao) {
+    validadeCartao.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length >= 2) {
+        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+      }
+      e.target.value = value;
+    });
+  }
+
+  // Apenas números no CVV
+  const cvvCartao = document.getElementById('modalCartaoCVV');
+  if (cvvCartao) {
+    cvvCartao.addEventListener('input', function(e) {
+      e.target.value = e.target.value.replace(/\D/g, '');
+    });
+  }
+
+  // Apenas letras no nome
+  const nomeCartao = document.getElementById('modalCartaoNome');
+  if (nomeCartao) {
+    nomeCartao.addEventListener('input', function(e) {
+      e.target.value = e.target.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '').toUpperCase();
+    });
+  }
+});
+
+// Função para abrir modal do cartão
+function abrirModalCartao(tipo) {
+  const modalCartao = document.getElementById('modalCartao');
+  const modalLabel = document.getElementById('modalCartaoLabel');
+  const grupoParcelas = document.getElementById('grupoParcelas');
+  
+  if (modalLabel) {
+    modalLabel.textContent = tipo === 'credito' ? 'Dados do Cartão de Crédito' : 'Dados do Cartão de Débito';
+  }
+  
+  if (grupoParcelas) {
+    grupoParcelas.style.display = tipo === 'credito' ? 'block' : 'none';
+  }
+  
+  dadosCartao.tipo = tipo;
+  
+  const modalInstance = new bootstrap.Modal(modalCartao);
+  modalInstance.show();
+}
+
+// Event listeners para os botões de configurar cartão
+document.addEventListener('DOMContentLoaded', function() {
+  const btnConfigCredito = document.getElementById('btnConfigCartaoCredito');
+  const btnConfigDebito = document.getElementById('btnConfigCartaoDebito');
+  
+  if (btnConfigCredito) {
+    btnConfigCredito.addEventListener('click', function() {
+      abrirModalCartao('credito');
+    });
+  }
+  
+  if (btnConfigDebito) {
+    btnConfigDebito.addEventListener('click', function() {
+      abrirModalCartao('debito');
+    });
+  }
+});
+
+// Validação e salvamento dos dados do cartão
+document.addEventListener('DOMContentLoaded', function() {
+  const btnSalvarCartao = document.getElementById('btnSalvarCartao');
+  
+  if (btnSalvarCartao) {
+    btnSalvarCartao.addEventListener('click', function() {
+      const form = document.getElementById('formCartao');
+      const numero = document.getElementById('modalCartaoNumero').value;
+      const validade = document.getElementById('modalCartaoValidade').value;
+      const cvv = document.getElementById('modalCartaoCVV').value;
+      const nome = document.getElementById('modalCartaoNome').value;
+      const parcelas = document.getElementById('modalCartaoParcelas').value;
+      
+      // Validação básica
+      if (!numero || numero.replace(/\s/g, '').length < 13) {
+        alert('Por favor, insira um número de cartão válido.');
+        return;
+      }
+      
+      if (!validade || !validade.match(/^\d{2}\/\d{2}$/)) {
+        alert('Por favor, insira uma data de validade válida (MM/AA).');
+        return;
+      }
+      
+      if (!cvv || cvv.length < 3) {
+        alert('Por favor, insira um CVV válido.');
+        return;
+      }
+      
+      if (!nome || nome.trim().length < 2) {
+        alert('Por favor, insira o nome do portador do cartão.');
+        return;
+      }
+      
+      // Salvar dados
+      dadosCartao.numero = numero;
+      dadosCartao.validade = validade;
+      dadosCartao.cvv = cvv;
+      dadosCartao.nome = nome;
+      dadosCartao.parcelas = parcelas;
+      
+      // Atualizar interface
+      const tipoTexto = dadosCartao.tipo === 'credito' ? 'Crédito' : 'Débito';
+      const parcelasTexto = dadosCartao.tipo === 'credito' ? ` (${parcelas}x)` : '';
+      
+      if (dadosCartao.tipo === 'credito') {
+        document.getElementById('btnConfigCartaoCredito').innerHTML = 
+          `<i class="bi bi-check-circle me-1"></i>Cartão Configurado${parcelasTexto}`;
+        document.getElementById('btnConfigCartaoCredito').classList.remove('btn-outline-primary');
+        document.getElementById('btnConfigCartaoCredito').classList.add('btn-success');
+      } else {
+        document.getElementById('btnConfigCartaoDebito').innerHTML = 
+          `<i class="bi bi-check-circle me-1"></i>Cartão Configurado`;
+        document.getElementById('btnConfigCartaoDebito').classList.remove('btn-outline-primary');
+        document.getElementById('btnConfigCartaoDebito').classList.add('btn-success');
+      }
+      
+      // Fechar modal
+      const modalInstance = bootstrap.Modal.getInstance(document.getElementById('modalCartao'));
+      modalInstance.hide();
+      
+      // Limpar formulário
+      document.getElementById('formCartao').reset();
+    });
+  }
+});
+
+// Atualização da forma de pagamento
+document.addEventListener('DOMContentLoaded', function() {
+  const tabPagamento = document.getElementById('tabPagamento');
+  if (tabPagamento) {
+    tabPagamento.addEventListener('click', function(e) {
+      let valor = 'Dinheiro';
+      if (e.target.closest('#tab-pix')) valor = 'Pix';
+      if (e.target.closest('#tab-credito')) valor = 'Cartão de Crédito';
+      if (e.target.closest('#tab-debito')) valor = 'Cartão de Débito';
+      document.getElementById('formaPagamento').value = valor;
+      
+      // Resetar botões de configuração quando mudar de aba
+      const btnCredito = document.getElementById('btnConfigCartaoCredito');
+      const btnDebito = document.getElementById('btnConfigCartaoDebito');
+      
+      if (btnCredito) {
+        btnCredito.innerHTML = 'Configurar Cartão';
+        btnCredito.classList.remove('btn-success');
+        btnCredito.classList.add('btn-outline-primary');
+      }
+      
+      if (btnDebito) {
+        btnDebito.innerHTML = 'Configurar Cartão';
+        btnDebito.classList.remove('btn-success');
+        btnDebito.classList.add('btn-outline-primary');
+      }
+      
+      // Limpar dados do cartão
+      dadosCartao = {
+        numero: '',
+        validade: '',
+        cvv: '',
+        nome: '',
+        parcelas: 1,
+        tipo: ''
+      };
+    });
+  }
+});
+
+// Dados dos quartos
+const quartos = [
+  { numero: "101", valor: 200, descricao: "Quarto Standard com vista para o jardim.", foto: "img/quartos/quarto1.jpeg" },
+  { numero: "102", valor: 210, descricao: "Quarto Standard com varanda privativa.", foto: "img/quartos/quarto2.jpeg" },
+  { numero: "201", valor: 230, descricao: "Quarto Luxo com cama king size.", foto: "img/quartos/quarto3.jpeg" },
+  { numero: "202", valor: 250, descricao: "Quarto Luxo com banheira de hidromassagem.", foto: "img/quartos/quarto4.jpeg" },
+  { numero: "301", valor: 180, descricao: "Quarto Econômico, ideal para casais.", foto: "img/quartos/quarto5.jpeg" },
+  { numero: "302", valor: 220, descricao: "Quarto Família com dois ambientes.", foto: "img/quartos/quarto6.jpeg" }
+];
+
+// Funcionalidade de seleção de quartos
+const btnAbrirModal = document.getElementById('btnAbrirModalQuartos');
+const inputQuarto = document.getElementById('quarto');
+const info = document.getElementById('quartoSelecionadoInfo');
+
+if (btnAbrirModal) {
+  btnAbrirModal.addEventListener('click', () => {
+    const container = document.getElementById('listaQuartos');
+    container.innerHTML = '';
+
+    // Obter quartos já ocupados
+    const clientes = JSON.parse(localStorage.getItem('novosClientes') || '[]');
+    const quartosOcupados = clientes.map(c => c.quarto);
+
+    quartos.forEach(quarto => {
+      const ocupado = quartosOcupados.includes(quarto.numero);
+      const card = document.createElement('div');
+      card.className = 'col-md-6 col-lg-4';
+      card.innerHTML = `
+        <div class="card h-100 ${ocupado ? 'border-danger' : 'border-success'}" style="cursor: ${ocupado ? 'not-allowed' : 'pointer'};">
+          <img src="${quarto.foto}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Quarto ${quarto.numero}">
+          <div class="card-body">
+            <h6 class="card-title">Quarto ${quarto.numero}</h6>
+            <p class="card-text small">${quarto.descricao}</p>
+            <p class="card-text"><strong>R$ ${quarto.valor}/noite</strong></p>
+            ${ocupado ? '<span class="badge bg-danger">Ocupado</span>' : '<span class="badge bg-success">Disponível</span>'}
+          </div>
+        </div>
+      `;
+      
+      if (!ocupado) {
+        card.addEventListener('click', () => {
+          inputQuarto.value = quarto.numero;
+          info.innerHTML = `
+            <div class="alert alert-success">
+              <strong>Quarto ${quarto.numero}</strong> selecionado<br>
+              <small>${quarto.descricao} - R$ ${quarto.valor}/noite</small>
+            </div>
+          `;
+          document.getElementById('btnRemoverQuarto').classList.remove('d-none');
+          bootstrap.Modal.getInstance(document.getElementById('modalQuartos')).hide();
+        });
+      }
+      
+      container.appendChild(card);
+    });
+
+    const modalQuartos = new bootstrap.Modal(document.getElementById('modalQuartos'));
+    modalQuartos.show();
+  });
+}
+
+// Remover seleção de quarto
+const btnRemoverQuarto = document.getElementById('btnRemoverQuarto');
+if (btnRemoverQuarto) {
+  btnRemoverQuarto.addEventListener('click', () => {
+    inputQuarto.value = '';
+    info.innerHTML = '';
+    btnRemoverQuarto.classList.add('d-none');
+  });
+}
+
+// Submissão do formulário
+const form = document.getElementById('formCadastro');
+if (form) {
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const quartoSelecionado = quartos.find(q => q.numero === document.getElementById('quarto').value);
+    
+    const novoCliente = {
+      nome: document.getElementById('nome').value,
+      cpf: document.getElementById('cpf').value,
+      email: document.getElementById('email').value,
+      telefone: document.getElementById('telefone').value,
+      quarto: document.getElementById('quarto').value,
+      valorQuarto: quartoSelecionado ? quartoSelecionado.valor : null,
+      descricaoQuarto: quartoSelecionado ? quartoSelecionado.descricao : "",
+      fotoQuarto: quartoSelecionado ? quartoSelecionado.foto : "",
+      checkin: document.getElementById('checkin').value,
+      checkout: document.getElementById('checkout').value,
+      observacoes: document.getElementById('observacoes').value,
+      status: "Pré-Reserva",
+      gastosExtras: [],
+      formaPagamento: document.getElementById('formaPagamento').value,
+      dadosCartao: dadosCartao.numero ? dadosCartao : null
+    };
+
+    const clientesExistentes = JSON.parse(localStorage.getItem('novosClientes')) || [];
+    clientesExistentes.push(novoCliente);
+    localStorage.setItem('novosClientes', JSON.stringify(clientesExistentes));
+
+    alert('Cliente cadastrado com sucesso!');
+    window.location.reload();
+  });
+}
+
+// Função para exibir clientes
+function exibirClientesComPagamento() {
+  const clientes = JSON.parse(localStorage.getItem('novosClientes')) || [];
+  const tabela = document.getElementById('tabelaReservas');
+  if (!tabela) return;
+  
+  const tbody = tabela.querySelector('tbody');
+  tbody.innerHTML = '';
+  
+  clientes.forEach((c, idx) => {
+    const numeroReserva = 1001 + idx;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${numeroReserva}</td>
+      <td>${c.nome}</td>
+      <td>${c.quarto}</td>
+      <td>${c.checkin}</td>
+      <td>${c.checkout}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Inicializar dados se necessário
+if (!localStorage.getItem('novosClientes') || JSON.parse(localStorage.getItem('novosClientes')).length === 0) {
+  const clientesIniciais = [
+    { nome: 'Maria Silva', quarto: '101', valorQuarto: 200, descricaoQuarto: 'Quarto Standard com vista para o jardim.', fotoQuarto: '', checkin: '2025-07-10', checkout: '2025-07-15', status: 'Pré-Reserva', gastosExtras: [], formaPagamento: 'Dinheiro' },
+    { nome: 'João Pereira', quarto: '202', valorQuarto: 250, descricaoQuarto: 'Quarto Luxo com banheira de hidromassagem.', fotoQuarto: '', checkin: '2025-07-12', checkout: '2025-07-14', status: 'Pré-Reserva', gastosExtras: [], formaPagamento: 'Pix' },
+    { nome: 'Ana Costa', quarto: '301', valorQuarto: 180, descricaoQuarto: 'Quarto Econômico, ideal para casais.', fotoQuarto: '', checkin: '2025-07-08', checkout: '2025-07-11', status: 'Pré-Reserva', gastosExtras: [], formaPagamento: 'Cartão de Crédito' },
+    { nome: 'Lucas Alves', quarto: '302', valorQuarto: 220, descricaoQuarto: 'Quarto Família com dois ambientes.', fotoQuarto: '', checkin: '2025-07-07', checkout: '2025-07-10', status: 'Pré-Reserva', gastosExtras: [], formaPagamento: 'Cartão de Débito' }
+  ];
+  localStorage.setItem('novosClientes', JSON.stringify(clientesIniciais));
+}
+
+// Carregar clientes ao carregar a página
+window.addEventListener('DOMContentLoaded', exibirClientesComPagamento);
+
+// Filtros de busca
+document.addEventListener('DOMContentLoaded', function() {
+  const filtroNome = document.getElementById('filtroNome');
+  const filtroCheckin = document.getElementById('filtroCheckin');
+  
+  if (filtroNome) {
+    filtroNome.addEventListener('input', filtrarReservas);
+  }
+  
+  if (filtroCheckin) {
+    filtroCheckin.addEventListener('change', filtrarReservas);
+  }
+});
+
+function filtrarReservas() {
+  const filtroNome = document.getElementById('filtroNome').value.toLowerCase();
+  const filtroCheckin = document.getElementById('filtroCheckin').value;
+  const linhas = document.querySelectorAll('#tabelaReservas tbody tr');
+  
+  linhas.forEach(linha => {
+    const nome = linha.cells[1].textContent.toLowerCase();
+    const quarto = linha.cells[2].textContent.toLowerCase();
+    const checkin = linha.cells[3].textContent;
+    
+    const matchNome = nome.includes(filtroNome) || quarto.includes(filtroNome);
+    const matchCheckin = !filtroCheckin || checkin === filtroCheckin;
+    
+    linha.style.display = matchNome && matchCheckin ? '' : 'none';
+  });
+}
+  </script>
+</body>
+</html>
+

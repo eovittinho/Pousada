@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mbsMUrY2ecnehaRU55EvRFdPre98bXcypiRMoVopb3A=",
+  "Hash": "OhgStp0HhxNSBMw9FuPtFH5kb1P6P7yxn4b3uAhZRO0=",
   "Source": "QuintaYpua",
   "BasePath": "_content/QuintaYpua",
   "Mode": "Default",
@@ -8,19 +8,19 @@
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [
     {
-      "Name": "QuintaYpua\\wwwroot",
+      "Name": "QuintaYpua/wwwroot",
       "Source": "QuintaYpua",
-      "ContentRoot": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
       "BasePath": "_content/QuintaYpua",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\css\\style.css",
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/css/style.css",
       "SourceId": "QuintaYpua",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
       "BasePath": "_content/QuintaYpua",
       "RelativePath": "css/style.css",
       "AssetKind": "All",
@@ -33,13 +33,146 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\style.css"
+      "OriginalItemSpec": "wwwroot/css/style.css"
     },
     {
-      "Identity": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\img\\quinta-removebg-preview.png",
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/img/logo.avif",
       "SourceId": "QuintaYpua",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
+      "BasePath": "_content/QuintaYpua",
+      "RelativePath": "img/logo.avif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/img/logo.avif"
+    },
+    {
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/img/quartos/quarto1.jpeg",
+      "SourceId": "QuintaYpua",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
+      "BasePath": "_content/QuintaYpua",
+      "RelativePath": "img/quartos/quarto1.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/img/quartos/quarto1.jpeg"
+    },
+    {
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/img/quartos/quarto2.jpeg",
+      "SourceId": "QuintaYpua",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
+      "BasePath": "_content/QuintaYpua",
+      "RelativePath": "img/quartos/quarto2.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/img/quartos/quarto2.jpeg"
+    },
+    {
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/img/quartos/quarto3.jpeg",
+      "SourceId": "QuintaYpua",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
+      "BasePath": "_content/QuintaYpua",
+      "RelativePath": "img/quartos/quarto3.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/img/quartos/quarto3.jpeg"
+    },
+    {
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/img/quartos/quarto4.jpeg",
+      "SourceId": "QuintaYpua",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
+      "BasePath": "_content/QuintaYpua",
+      "RelativePath": "img/quartos/quarto4.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/img/quartos/quarto4.jpeg"
+    },
+    {
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/img/quartos/quarto5.jpeg",
+      "SourceId": "QuintaYpua",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
+      "BasePath": "_content/QuintaYpua",
+      "RelativePath": "img/quartos/quarto5.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/img/quartos/quarto5.jpeg"
+    },
+    {
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/img/quartos/quarto6.jpeg",
+      "SourceId": "QuintaYpua",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
+      "BasePath": "_content/QuintaYpua",
+      "RelativePath": "img/quartos/quarto6.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/img/quartos/quarto6.jpeg"
+    },
+    {
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/img/quinta-removebg-preview.png",
+      "SourceId": "QuintaYpua",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
       "BasePath": "_content/QuintaYpua",
       "RelativePath": "img/quinta-removebg-preview.png",
       "AssetKind": "All",
@@ -52,13 +185,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\quinta-removebg-preview.png"
+      "OriginalItemSpec": "wwwroot/img/quinta-removebg-preview.png"
     },
     {
-      "Identity": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\index.html",
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/index.html",
       "SourceId": "QuintaYpua",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
       "BasePath": "_content/QuintaYpua",
       "RelativePath": "index.html",
       "AssetKind": "All",
@@ -71,13 +204,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\index.html"
+      "OriginalItemSpec": "wwwroot/index.html"
     },
     {
-      "Identity": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\js\\novosClientes.js",
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/js/novosClientes.js",
       "SourceId": "QuintaYpua",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
       "BasePath": "_content/QuintaYpua",
       "RelativePath": "js/novosClientes.js",
       "AssetKind": "All",
@@ -90,13 +223,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\novosClientes.js"
+      "OriginalItemSpec": "wwwroot/js/novosClientes.js"
     },
     {
-      "Identity": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\pousada-reservas\\README.md",
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/pousada-reservas/README.md",
       "SourceId": "QuintaYpua",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
       "BasePath": "_content/QuintaYpua",
       "RelativePath": "pousada-reservas/README.md",
       "AssetKind": "All",
@@ -109,13 +242,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\pousada-reservas\\README.md"
+      "OriginalItemSpec": "wwwroot/pousada-reservas/README.md"
     },
     {
-      "Identity": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\pousada-reservas\\wwwroot\\css\\style.css",
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/pousada-reservas/wwwroot/css/style.css",
       "SourceId": "QuintaYpua",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
       "BasePath": "_content/QuintaYpua",
       "RelativePath": "pousada-reservas/wwwroot/css/style.css",
       "AssetKind": "All",
@@ -128,13 +261,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\pousada-reservas\\wwwroot\\css\\style.css"
+      "OriginalItemSpec": "wwwroot/pousada-reservas/wwwroot/css/style.css"
     },
     {
-      "Identity": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\pousada-reservas\\wwwroot\\index.html",
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/pousada-reservas/wwwroot/index.html",
       "SourceId": "QuintaYpua",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
       "BasePath": "_content/QuintaYpua",
       "RelativePath": "pousada-reservas/wwwroot/index.html",
       "AssetKind": "All",
@@ -147,13 +280,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\pousada-reservas\\wwwroot\\index.html"
+      "OriginalItemSpec": "wwwroot/pousada-reservas/wwwroot/index.html"
     },
     {
-      "Identity": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\pousada-reservas\\wwwroot\\js\\novosClientes.js",
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/pousada-reservas/wwwroot/js/novosClientes.js",
       "SourceId": "QuintaYpua",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
       "BasePath": "_content/QuintaYpua",
       "RelativePath": "pousada-reservas/wwwroot/js/novosClientes.js",
       "AssetKind": "All",
@@ -166,13 +299,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\pousada-reservas\\wwwroot\\js\\novosClientes.js"
+      "OriginalItemSpec": "wwwroot/pousada-reservas/wwwroot/js/novosClientes.js"
     },
     {
-      "Identity": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\pousada-reservas\\wwwroot\\reservas.html",
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/pousada-reservas/wwwroot/reservas.html",
       "SourceId": "QuintaYpua",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
       "BasePath": "_content/QuintaYpua",
       "RelativePath": "pousada-reservas/wwwroot/reservas.html",
       "AssetKind": "All",
@@ -185,13 +318,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\pousada-reservas\\wwwroot\\reservas.html"
+      "OriginalItemSpec": "wwwroot/pousada-reservas/wwwroot/reservas.html"
     },
     {
-      "Identity": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\reservas.html",
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/reservas.html",
       "SourceId": "QuintaYpua",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
       "BasePath": "_content/QuintaYpua",
       "RelativePath": "reservas.html",
       "AssetKind": "All",
@@ -204,13 +337,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\reservas.html"
+      "OriginalItemSpec": "wwwroot/reservas.html"
     },
     {
-      "Identity": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\status.html",
+      "Identity": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/status.html",
       "SourceId": "QuintaYpua",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\wwwroot\\",
+      "ContentRoot": "/home/ubuntu/pousada/Pousada-main/QuintaYpua/wwwroot/",
       "BasePath": "_content/QuintaYpua",
       "RelativePath": "status.html",
       "AssetKind": "All",
@@ -223,7 +356,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\status.html"
+      "OriginalItemSpec": "wwwroot/status.html"
     }
   ]
 }
