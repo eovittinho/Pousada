@@ -119,10 +119,7 @@
 
     const precosQuartos = { "101": 200, "202": 250, "303": 180, "404": 220 };
     const clientesAntigos = [
-      { id: 1001, nome: "Maria Silva", status: "Confirmado", quarto: "101", gastosExtras: [] },
-      { id: 1002, nome: "João Pereira", status: "Pré-Reserva", quarto: "202", gastosExtras: [] },
-      { id: 1003, nome: "Ana Costa", status: "Cancelado", quarto: "303", gastosExtras: [] },
-      { id: 1004, nome: "Lucas Alves", status: "Hospedado", quarto: "404", gastosExtras: [] }
+  // REMOVIDOS clientes fixos. Apenas clientes cadastrados pelo usuário aparecerão.
     ];
 
     const tbody = document.querySelector('#tabelaStatus tbody');
@@ -164,7 +161,8 @@
 
     // Abrir modal de detalhes
     function abrirModalDetalhes(cliente) {
-      const clientesNovos = JSON.parse(localStorage.getItem('clientes')) || [];
+  // Buscar clientes cadastrados em 'novosClientes' (igual à aba de reservas)
+  const clientesNovos = JSON.parse(localStorage.getItem('novosClientes')) || [];
       let isNovoCliente = cliente.id >= 1005;
       let gastosExtras = cliente.gastosExtras || [];
 

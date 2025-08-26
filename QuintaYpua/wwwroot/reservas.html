@@ -35,57 +35,171 @@
   </nav>
 
   <main class="container-fluid px-4 pt-4 pb-2 flex-grow-1">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h1 class="text-center flex-grow-1">Gerenciador de Reservas</h1>
-      <button class="btn btn-light ms-3 text-dark" data-bs-toggle="modal" data-bs-target="#modalCadastro">Cadastrar Novo Cliente</button>
-    </div>
-
-    <div class="row mb-4 filtros">
-      <div class="col-md-4 mb-2">
-        <input type="text" id="filtroNome" class="form-control" placeholder="🔍 Buscar por nome ou quarto" />
+    <ul class="nav nav-tabs mb-3" id="abasReservas" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="tab-reservas" data-bs-toggle="tab" data-bs-target="#pane-reservas" type="button" role="tab" aria-controls="pane-reservas" aria-selected="true">Reservas</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-faturamento" data-bs-toggle="tab" data-bs-target="#pane-faturamento" type="button" role="tab" aria-controls="pane-faturamento" aria-selected="false">Faturamento</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-calendario" data-bs-toggle="tab" data-bs-target="#pane-calendario" type="button" role="tab" aria-controls="pane-calendario" aria-selected="false">Calendário</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="conteudoAbasReservas">
+      <div class="tab-pane fade" id="pane-calendario" role="tabpanel" aria-labelledby="tab-calendario">
+        <h2 class="mb-3">Calendário de Check-in e Check-out</h2>
+        <div class="mb-3">
+          <label for="mesCalendario" class="form-label">Selecione o mês:</label>
+          <input type="month" id="mesCalendario" class="form-control" style="max-width:200px;display:inline-block;">
+        </div>
+        <div id="calendarioCheckinCheckout"></div>
       </div>
-      <div class="col-md-4 mb-2">
-        <input type="date" id="filtroCheckin" class="form-control" placeholder="Filtrar por Check-in" />
+      <div class="tab-pane fade show active" id="pane-reservas" role="tabpanel" aria-labelledby="tab-reservas">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h1 class="mb-0">Gerenciador de Reservas</h1>
+          <button id="btnCadastrarCliente" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCadastro">
+            <i class="bi bi-person-plus"></i> Cadastrar Cliente
+          </button>
+        </div>
+        <div class="row mb-4 filtros">
+          <div class="col-md-4 mb-2">
+            <input type="text" id="filtroNome" class="form-control" placeholder="🔍 Buscar por nome ou quarto" />
+          </div>
+          <div class="col-md-4 mb-2">
+            <input type="date" id="filtroCheckin" class="form-control" placeholder="Filtrar por Check-in" />
+          </div>
+          <div class="col-md-4 mb-2">
+            <button class="btn btn-outline-secondary w-100" onclick="window.print()">Imprimir Página</button>
+          </div>
+        </div>
+        <div class="table-container">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered text-white align-middle" id="tabelaReservas">
+              <thead>
+                <tr>
+                  <th>Reserva #</th>
+                  <th>Nome do Hóspede</th>
+                  <th>Quarto</th>
+                  <th>Check-in</th>
+                  <th>Check-out</th>
+                  <th>Preço do Quarto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Reservas serão preenchidas dinamicamente pelo JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="mt-4">
+          <h5>Ajuda</h5>
+          <ul>
+            <li>Use o campo de busca para filtrar reservas por nome ou quarto.</li>
+            <li>Clique em "Imprimir Página" para gerar uma versão para impressão.</li>
+            <li>Cadastre novos clientes usando o botão "Cadastrar Cliente".</li>
+          </ul>
+        </div>
       </div>
-      <div class="col-md-4 mb-2">
-        <button class="btn btn-outline-secondary w-100" onclick="window.print()">Imprimir Página</button>
+      <div class="tab-pane fade" id="pane-faturamento" role="tabpanel" aria-labelledby="tab-faturamento">
+        <div class="row g-4">
+          <div class="col-lg-8">
+            <div class="card shadow-sm border-0 mb-4">
+              <div class="card-body">
+                <h4 class="card-title mb-3" style="color:#7c2f2f">Faturamento Detalhado</h4>
+                <div class="table-responsive">
+                  <table class="table table-bordered align-middle bg-white" id="tabelaFaturamentoDetalhado">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Cliente</th>
+                        <th>Quarto</th>
+                        <th>Preço do Quarto</th>
+                        <th>Total Gastos Extras</th>
+                        <th>Total Cliente</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Preenchido via JS -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="card shadow-sm border-0 mb-4">
+              <div class="card-body">
+                <h5 class="card-title mb-3" style="color:#7c2f2f">Gastos Extras por Cliente</h5>
+                <div class="table-responsive">
+                  <table class="table table-bordered align-middle bg-white" id="tabelaGastosPorCliente">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Cliente</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Quantidade</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Preenchido via JS -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card shadow-sm border-0 mb-4">
+              <div class="card-body">
+                <h5 class="card-title mb-3" style="color:#7c2f2f">Faturamento ao Longo do Tempo</h5>
+                <canvas id="graficoLinhaFaturamento" height="220"></canvas>
+              </div>
+            </div>
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                <h5 class="card-title mb-3" style="color:#7c2f2f">Resumo do Faturamento</h5>
+                <div id="resumoFaturamentoCards" class="row g-2 mb-3"></div>
+                <div class="table-responsive">
+                  <table class="table table-bordered align-middle bg-white" id="tabelaResumoFaturamento">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Tipo</th>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Preenchido via JS -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="table-container">
-      <div class="table-responsive">
-        <table class="table table-hover table-bordered text-white align-middle" id="tabelaReservas">
-          <thead>
-            <tr>
-              <th>Reserva #</th>
-              <th>Nome do Hóspede</th>
-              <th>Quarto</th>
-              <th>Check-in</th>
-              <th>Check-out</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Reservas serão preenchidas dinamicamente pelo JS -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="mt-4">
-      <h5>Ajuda</h5>
-      <ul>
-        <li>Use o campo de busca para filtrar reservas por nome ou quarto.</li>
-        <li>Clique em "Imprimir Página" para gerar uma versão para impressão.</li>
-        <li>Cadastre novos clientes usando o botão "Cadastrar Cliente".</li>
-      </ul>
     </div>
   </main>
 
-  <footer class="mt-auto py-3 text-center text-light" style="background-color:#4b2e2e">&copy; 2025 Pousada Quinta do Ypuá. Todos os direitos reservados.</footer>
+  <!-- Modal QR Code Pix -->
+  <div class="modal fade" id="modalPixQr" tabindex="-1" aria-labelledby="modalPixQrLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalPixQrLabel">Pagamento via Pix</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center">
+          <div id="pixQrCodeArea"></div>
+          <div class="mt-2"><small id="pixQrCodeInfo"></small></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer" style="z-index:9999"></div>
-
-  <!-- Modal Cadastro -->
+  <!-- Modal Cadastro Cliente -->
   <div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="modalCadastroLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content bg-dark text-light">
@@ -109,8 +223,7 @@
               </button>
               <input type="hidden" id="quarto" required/>
               <div id="quartoSelecionadoInfo" class="mb-2"></div>
-            <div id="quartoSelecionadoInfo" class="mb-2"></div>
-            <button type="button" id="btnRemoverQuarto" class="btn btn-outline-danger btn-sm d-none">Remover seleção de quarto</button>
+              <button type="button" id="btnRemoverQuarto" class="btn btn-outline-danger btn-sm d-none">Remover seleção de quarto</button>
             </div>
             <div class="col-md-4"><label class="form-label">Check-in</label><input type="date" class="form-control" id="checkin" required></div>
             <div class="col-md-4"><label class="form-label">Check-out</label><input type="date" class="form-control" id="checkout" required></div>
@@ -218,240 +331,216 @@
     </div>
   </div>
 
-  <!-- Modal Quartos -->
-  <div class="modal fade" id="modalQuartos" tabindex="-1" aria-labelledby="modalQuartosLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width:900px;">
-      <div class="modal-content" style="background:#f8fafc;color:#4b2e2e;border-radius:18px;">
-        <div class="modal-header" style="background:#4b2e2e;border-bottom:none;">
-          <h5 class="modal-title" style="color:#fff;font-weight:600;">Selecione um Quarto</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body bg-white">
-          <div id="listaQuartos" class="row g-4"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <footer class="mt-auto py-3 text-center text-light" style="background-color:#4b2e2e">
+    &copy; 2025 Pousada Quinta do Ypuá. Todos os direitos reservados.
+  </footer>
+
+  
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/novosClientes.js"></script>
   <script>
-// Modal único para crédito e débito - garantir abertura sempre
-document.addEventListener('DOMContentLoaded', function() {
-  var tabCredito = document.getElementById('tab-credito');
-  var tabDebito = document.getElementById('tab-debito');
-  var modalCartao = document.getElementById('modalCartao');
-  var modalLabel = document.getElementById('modalCartaoLabel');
-  var grupoParcelas = document.getElementById('grupoParcelas');
-  var modalInstance = null;
-  function abrirModalCartao(tipo) {
-    if (modalLabel) modalLabel.textContent = tipo === 'credito' ? 'Dados do Cartão de Crédito' : 'Dados do Cartão de Débito';
-    if (grupoParcelas) grupoParcelas.style.display = tipo === 'credito' ? '' : 'none';
-    if (!modalInstance) modalInstance = new bootstrap.Modal(modalCartao);
-    modalInstance.show();
-  }
-  if (tabCredito) {
-    tabCredito.addEventListener('shown.bs.tab', function () { abrirModalCartao('credito'); });
-    tabCredito.addEventListener('click', function () {
-      if (tabCredito.classList.contains('active')) abrirModalCartao('credito');
-    });
-  }
-  if (tabDebito) {
-    tabDebito.addEventListener('shown.bs.tab', function () { abrirModalCartao('debito'); });
-    tabDebito.addEventListener('click', function () {
-      if (tabDebito.classList.contains('active')) abrirModalCartao('debito');
-    });
-  }
-  if (modalCartao) {
-    modalCartao.addEventListener('hidden.bs.modal', function () { modalInstance = null; });
-  }
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  const tabPagamento = document.getElementById('tabPagamento');
-  if (tabPagamento) {
-    tabPagamento.addEventListener('click', function(e) {
-      let valor = 'Dinheiro';
-      if (e.target.closest('#tab-pix')) valor = 'Pix';
-      if (e.target.closest('#tab-credito')) valor = 'Cartão de Crédito';
-      if (e.target.closest('#tab-debito')) valor = 'Cartão de Débito';
-      document.getElementById('formaPagamento').value = valor;
-    });
-  }
-});
-const quartos = [
-  { numero: "101", valor: 200, descricao: "Quarto Standard com vista para o jardim.", foto: "img/quartos/quarto1.jpeg" },
-  { numero: "102", valor: 210, descricao: "Quarto Standard com varanda privativa.", foto: "img/quartos/quarto2.jpeg" },
-  { numero: "201", valor: 230, descricao: "Quarto Luxo com cama king size.", foto: "img/quartos/quarto3.jpeg" },
-  { numero: "202", valor: 250, descricao: "Quarto Luxo com banheira de hidromassagem.", foto: "img/quartos/quarto4.jpeg" },
-  { numero: "301", valor: 180, descricao: "Quarto Econômico, ideal para casais.", foto: "img/quartos/quarto5.jpeg" },
-  { numero: "302", valor: 220, descricao: "Quarto Família com dois ambientes.", foto: "img/quartos/quarto6.jpeg" }
-];
-
-const btnAbrirModal = document.getElementById('btnAbrirModalQuartos');
-const inputQuarto = document.getElementById('quarto');
-const info = document.getElementById('quartoSelecionadoInfo');
-
-btnAbrirModal.addEventListener('click', () => {
-  const container = document.getElementById('listaQuartos');
-  container.innerHTML = '';
-
-  // Obter quartos já ocupados
-  const clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
-  const quartosOcupados = clientes.map(c => c.quarto);
-
-  quartos.forEach((q) => {
-    const col = document.createElement('div');
-    col.className = 'col-md-4 mb-4';
-
-    const ocupado = quartosOcupados.includes(q.numero);
-
-    col.innerHTML = `
-      <div class="card h-100 shadow-sm border-0" style="background:#fff;border-radius:16px;color:#4b2e2e;">
-        <img src="${q.foto}" style="height:160px;object-fit:cover;border-top-left-radius:16px;border-top-right-radius:16px;">
-        <div class="card-body d-flex flex-column">
-          <div class="d-flex align-items-center gap-2 mb-2">
-            <span style="font-weight:600;">Quarto ${q.numero}</span>
-            <span style="background:#f8fafc;border-radius:12px;padding:2px 8px;">R$ ${q.valor.toFixed(2)}</span>
-          </div>
-          <p>${q.descricao}</p>
-          <div class="mt-auto d-flex gap-2 w-100">
-            <button class="btn flex-fill" style="background:#4b2e2e;color:#fff;border:none;border-radius:8px;" ${ocupado ? 'disabled' : ''} data-select>
-              ${ocupado ? 'Ocupado' : 'Selecionar'}
-            </button>
-            <button class="btn flex-fill" style="border:1px solid #4b2e2e;color:#4b2e2e;background:transparent;border-radius:8px;" data-details>Ver detalhes</button>
-          </div>
-        </div>
-      </div>`;
-
-    col.querySelector('[data-select]').onclick = () => {
-      if (ocupado) return;
-      inputQuarto.value = q.numero;
-      info.innerHTML = `<strong>Selecionado:</strong> Quarto ${q.numero} - R$ ${q.valor.toFixed(2)}<br>
-                        <img src='${q.foto}' style='width:60px;height:60px;object-fit:cover;border-radius:6px;'><br>
-                        <span>${q.descricao}</span>`;
-      document.getElementById('btnRemoverQuarto').classList.remove('d-none');
-      bootstrap.Modal.getOrCreateInstance(document.getElementById('modalQuartos')).hide();
-    }
-// Botão para remover seleção de quarto
-document.getElementById('btnRemoverQuarto').addEventListener('click', function() {
-  inputQuarto.value = '';
-  info.innerHTML = '';
-  this.classList.add('d-none');
-});
-
-    col.querySelector('[data-details]').onclick = () => abrirDetalhesQuarto(q, [q.foto]);
-    container.appendChild(col);
-  });
-
-  bootstrap.Modal.getOrCreateInstance(document.getElementById('modalQuartos')).show();
-});
-
-function abrirDetalhesQuarto(quarto,fotos){
-  let modal = document.getElementById('modalDetalhesQuarto');
-  if(!modal){
-    modal = document.createElement('div');
-    modal.id = 'modalDetalhesQuarto';
-    modal.className = 'modal fade';
-    document.body.appendChild(modal);
-  }
-  modal.innerHTML = `
-    <div class="modal-dialog modal-dialog-centered" style="max-width:1100px;">
-      <div class="modal-content" style="background:#f8fafc;color:#4b2e2e;border-radius:22px;">
-        <div class="modal-header" style="background:#4b2e2e;">
-          <h5 class="modal-title" style="color:#fff;">Detalhes do Quarto</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body bg-white p-4">
-          <div class="row g-4">
-            <div class="col-lg-7">
-              <img id="mainFotoQuarto" src="${fotos[0]}" class="img-fluid rounded" style="height:370px;object-fit:cover;">
-              <div class="d-flex gap-2 mt-3 overflow-auto">
-                ${fotos.map((f,i)=>`
-                  <img src="${f}" style="width:110px;height:70px;object-fit:cover;border-radius:10px;cursor:pointer;border:2px solid ${i===0?'#4b2e2e':'#e0e0e0'}"
-                    onclick="document.getElementById('mainFotoQuarto').src='${f}'; Array.from(this.parentNode.children).forEach(img=>img.style.border='2px solid #e0e0e0'); this.style.border='2px solid #4b2e2e';">`).join('')}
-              </div>
-            </div>
-            <div class="col-lg-5 d-flex flex-column justify-content-center">
-              <h4>Quarto ${quarto.numero}</h4>
-              <p>${quarto.descricao}</p>
-              <h5 style="color:#4b2e2e;">R$ ${quarto.valor.toFixed(2)}</h5>
-              <button class="btn w-100" style="background:#4b2e2e;color:#fff;border:none;border-radius:8px;"
-                      onclick="selecionarQuartoDireto('${quarto.numero}')">Selecionar este quarto</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>`;
-  bootstrap.Modal.getOrCreateInstance(modal).show();
-}
-
-function selecionarQuartoDireto(numero){
-  const q = quartos.find(p=>p.numero === numero);
-  if(q){
-    inputQuarto.value = q.numero;
-    info.innerHTML = `<strong>Selecionado:</strong> Quarto ${q.numero} - R$ ${q.valor.toFixed(2)}`;
-    const m1 = document.getElementById('modalDetalhesQuarto');
-    const m2 = document.getElementById('modalQuartos');
-    if(m1) bootstrap.Modal.getOrCreateInstance(m1).hide();
-    if(m2) bootstrap.Modal.getOrCreateInstance(m2).hide();
-  }
-}
-
-// ======================= Cadastro de Clientes =========================
-document.getElementById('formCadastro').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const nome = document.getElementById('nome').value;
-    const cpf  = document.getElementById('cpf').value;
-    const email = document.getElementById('email').value;
-    const telefone = document.getElementById('telefone').value;
-    const quarto = document.getElementById('quarto').value;
-    const checkin = document.getElementById('checkin').value;
-    const checkout = document.getElementById('checkout').value;
-    const observacoes = document.getElementById('observacoes').value;
-    const formaPagamento = document.getElementById('formaPagamento').value;
-
-    if(!nome || !cpf || !quarto || !checkin || !checkout || !formaPagamento){
-        alert("Por favor, preencha todos os campos obrigatórios!");
-        return;
+    // Calendário visual de check-in/check-out
+    function renderizarCalendarioCheckinCheckout() {
+      const clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
+      const container = document.getElementById('calendarioCheckinCheckout');
+      if (!container) return;
+      container.innerHTML = '';
+      // Descobrir todos os quartos cadastrados
+      const quartosSet = new Set(clientes.map(r => r.quarto));
+      const quartos = Array.from(quartosSet).sort();
+      // Mês/ano selecionado
+      const inputMes = document.getElementById('mesCalendario');
+      let dataBase = new Date();
+      if (inputMes && inputMes.value) {
+        const [ano, mes] = inputMes.value.split('-');
+        dataBase = new Date(ano, mes - 1, 1);
+      } else {
+        // Padrão: mês atual
+        dataBase = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+        if (inputMes) inputMes.value = dataBase.toISOString().slice(0,7);
+      }
+      const ano = dataBase.getFullYear();
+      const mes = dataBase.getMonth();
+      const diasNoMes = new Date(ano, mes+1, 0).getDate();
+      // Montar cabeçalho do calendário
+      let html = '<div class="table-responsive"><table class="table table-bordered align-middle"><thead><tr><th>Quarto</th>';
+      for (let d=1; d<=diasNoMes; d++) {
+        html += `<th style="min-width:60px;text-align:center">${d}</th>`;
+      }
+      html += '</tr></thead><tbody>';
+      // Para cada quarto, linha do calendário
+      quartos.forEach(num => {
+        html += `<tr><td><b>${num}</b></td>`;
+        for (let d=1; d<=diasNoMes; d++) {
+          const dia = new Date(ano, mes, d);
+          // Procurar reserva para este quarto neste dia
+          const reserva = clientes.find(r => r.quarto == num && r.checkin && r.checkout && new Date(r.checkin) <= dia && dia <= new Date(r.checkout));
+          if (reserva) {
+            let tipo = '';
+            if (reserva.checkin && new Date(reserva.checkin).toDateString() === dia.toDateString()) tipo = 'checkin';
+            if (reserva.checkout && new Date(reserva.checkout).toDateString() === dia.toDateString()) tipo = 'checkout';
+            let cor = tipo === 'checkin' ? '#bbf7d0' : tipo === 'checkout' ? '#fee2e2' : '#fef9c3';
+            let icone = tipo === 'checkin' ? '⬅️' : tipo === 'checkout' ? '➡️' : '';
+            html += `<td style="background:${cor};text-align:center;font-size:0.9em">${icone} ${reserva.nome}</td>`;
+          } else {
+            html += '<td style="background:#e0f2fe"></td>';
+          }
+        }
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+      container.innerHTML = html;
     }
 
-    const clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
-    clientes.push({nome, cpf, email, telefone, quarto, checkin, checkout, observacoes, formaPagamento});
-    localStorage.setItem('clientes', JSON.stringify(clientes));
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabCalendario = document.getElementById('tab-calendario');
+      const inputMes = document.getElementById('mesCalendario');
+      if (tabCalendario) {
+        tabCalendario.addEventListener('shown.bs.tab', renderizarCalendarioCheckinCheckout);
+      }
+      if (inputMes) {
+        inputMes.addEventListener('change', renderizarCalendarioCheckinCheckout);
+      }
+    });
+    window.precos = { 
+      '101': 200, '102': 210, '201': 230, '202': 250, '301': 180, '302': 220 
+    };
 
-    const modal = bootstrap.Modal.getInstance(document.getElementById('modalCadastro'));
-    modal.hide();
-
-    this.reset();
-  document.getElementById('quartoSelecionadoInfo').innerHTML = '';
-  document.getElementById('btnRemoverQuarto').classList.add('d-none');
-
-    atualizarTabela();
-    alert(`Cliente ${nome} cadastrado com sucesso!`);
-});
-
-// ======================= Preencher tabela =========================
-function atualizarTabela(){
-    const tabela = document.getElementById('tabelaReservas').querySelector('tbody');
-    tabela.innerHTML = '';
-    const clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
-    clientes.forEach((c, i)=>{
+    function atualizarTabela(){
+      const tabela = document.getElementById('tabelaReservas').querySelector('tbody');
+      tabela.innerHTML = '';
+      // Buscar clientes do localStorage (preferencialmente de 'novosClientes')
+      let clientes = JSON.parse(localStorage.getItem('novosClientes') || '[]');
+      // Sincronizar para a chave 'clientes' (usada na aba de status)
+      localStorage.setItem('clientes', JSON.stringify(clientes));
+      clientes.forEach((c, i)=>{
+        let preco = '';
+        if (c.valorQuarto && !isNaN(Number(c.valorQuarto))) {
+          preco = c.valorQuarto;
+        } else if (window.precos && c.quarto) {
+          preco = window.precos[c.quarto] || '';
+        }
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td>${i+1}</td>
-            <td>${c.nome}</td>
-            <td>${c.quarto}</td>
-            <td>${c.checkin}</td>
-            <td>${c.checkout}</td>`;
+          <td>${i+1}</td>
+          <td>${c.nome}</td>
+          <td>${c.quarto}</td>
+          <td>${c.checkin}</td>
+          <td>${c.checkout}</td>
+          <td>${preco ? 'R$ ' + Number(preco).toFixed(2) : '-'}</td>
+        `;
         tabela.appendChild(tr);
+      });
+    }
+
+    // Faturamento detalhado, gastos extras por cliente, resumo e gráfico
+    function atualizarFaturamento() {
+      const clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
+      const tbodyDetalhado = document.querySelector('#tabelaFaturamentoDetalhado tbody');
+      const tbodyResumo = document.querySelector('#tabelaResumoFaturamento tbody');
+      const tbodyGastos = document.querySelector('#tabelaGastosPorCliente tbody');
+      tbodyDetalhado.innerHTML = '';
+      tbodyResumo.innerHTML = '';
+      tbodyGastos.innerHTML = '';
+      let totalGeral = 0;
+      let totalQuartos = 0;
+      let totalExtras = 0;
+      const porCliente = {};
+      const porQuarto = {};
+      const porGasto = {};
+      // Para gráfico
+      const porMes = {};
+      clientes.forEach(c => {
+        const valorQuarto = Number(c.valorQuarto || (window.precos && window.precos[c.quarto]) || 0);
+        let totalGastos = 0;
+        if (Array.isArray(c.gastosExtras)) {
+          c.gastosExtras.forEach(g => {
+            const val = Number(g.valor || 0) * (g.quantidade || 1);
+            totalGastos += val;
+            if (!porGasto[g.descricao]) porGasto[g.descricao] = 0;
+            porGasto[g.descricao] += val;
+            totalExtras += val;
+            tbodyGastos.innerHTML += `<tr><td>${c.nome}</td><td>${g.descricao || '-'}</td><td>R$ ${Number(g.valor || 0).toFixed(2)}</td><td>${g.quantidade || 1}</td><td>R$ ${(val).toFixed(2)}</td></tr>`;
+          });
+        }
+        const totalCliente = valorQuarto + totalGastos;
+        totalGeral += totalCliente;
+        totalQuartos += valorQuarto;
+        if (!porCliente[c.nome]) porCliente[c.nome] = 0;
+        porCliente[c.nome] += totalCliente;
+        if (!porQuarto[c.quarto]) porQuarto[c.quarto] = 0;
+        porQuarto[c.quarto] += valorQuarto;
+        tbodyDetalhado.innerHTML += `<tr><td>${c.nome}</td><td>${c.quarto}</td><td>R$ ${valorQuarto.toFixed(2)}</td><td>R$ ${totalGastos.toFixed(2)}</td><td><b>R$ ${totalCliente.toFixed(2)}</b></td></tr>`;
+        // Gráfico: agrupar por mês do checkin
+        if (c.checkin) {
+          const mes = c.checkin.slice(0,7);
+          if (!porMes[mes]) porMes[mes] = 0;
+          porMes[mes] += totalCliente;
+        }
+      });
+      // Resumo visual em cards horizontais
+      const resumoCards = [
+        { label: 'Total Quartos', valor: totalQuartos, color: 'success', icon: 'bi bi-door-open' },
+        { label: 'Total Gastos Extras', valor: totalExtras, color: 'warning', icon: 'bi bi-cash-coin' },
+        { label: 'Total Geral', valor: totalGeral, color: 'primary', icon: 'bi bi-bar-chart-line' }
+      ];
+      let cardsHtml = '';
+      resumoCards.forEach(card => {
+        cardsHtml += `<div class="col-12 col-md-4"><div class="card border-0 shadow-sm mb-2 bg-${card.color} bg-opacity-10"><div class="card-body d-flex flex-column align-items-center justify-content-center py-3"><i class="${card.icon} fs-2 mb-2 text-${card.color}"></i><div class="fw-bold text-${card.color} mb-1">${card.label}</div><div class="fs-4 fw-bold">R$ ${card.valor.toFixed(2)}</div></div></div></div>`;
+      });
+      document.getElementById('resumoFaturamentoCards').innerHTML = cardsHtml;
+
+      // Resumo por cliente
+      Object.entries(porCliente).forEach(([nome, valor]) => {
+        tbodyResumo.innerHTML += `<tr><td><span class='badge bg-secondary'>Cliente</span></td><td>${nome}</td><td>R$ ${valor.toFixed(2)}</td></tr>`;
+      });
+      // Resumo por quarto
+      Object.entries(porQuarto).forEach(([quarto, valor]) => {
+        tbodyResumo.innerHTML += `<tr><td><span class='badge bg-success'>Quarto</span></td><td>${quarto}</td><td>R$ ${valor.toFixed(2)}</td></tr>`;
+      });
+      // Resumo por gasto extra
+      Object.entries(porGasto).forEach(([desc, valor]) => {
+        tbodyResumo.innerHTML += `<tr><td><span class='badge bg-warning text-dark'>Gasto Extra</span></td><td>${desc}</td><td>R$ ${valor.toFixed(2)}</td></tr>`;
+      });
+      // Totalizadores apenas nos cards
+
+      // Gráfico em linha do faturamento mensal
+      const ctx = document.getElementById('graficoLinhaFaturamento').getContext('2d');
+      const labels = Object.keys(porMes).sort();
+      const dataVals = labels.map(l => porMes[l]);
+      if (window.graficoLinhaFaturamentoInstance) window.graficoLinhaFaturamentoInstance.destroy();
+      window.graficoLinhaFaturamentoInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Faturamento Mensal',
+            data: dataVals,
+            borderColor: '#7c2f2f',
+            backgroundColor: 'rgba(124,47,47,0.1)',
+            tension: 0.3,
+            fill: true,
+            pointRadius: 5,
+            pointBackgroundColor: '#7c2f2f',
+          }]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', atualizarTabela);
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabFaturamento = document.getElementById('tab-faturamento');
+      if (tabFaturamento) {
+        tabFaturamento.addEventListener('shown.bs.tab', atualizarFaturamento);
+      }
     });
-}
-
-document.addEventListener('DOMContentLoaded', atualizarTabela);
-  </script>
-
+    
   </script>
 </body>
 </html>

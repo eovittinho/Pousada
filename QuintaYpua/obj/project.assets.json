@@ -2118,11 +2118,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Alunos\\Downloads\\sistema_pousada_integrado\\pousada\\Pousada-main\\QuintaYpua\\QuintaYpua.csproj",
+      "projectUniqueName": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\QuintaYpua.csproj",
       "projectName": "QuintaYpua",
-      "projectPath": "C:\\Users\\Alunos\\Downloads\\sistema_pousada_integrado\\pousada\\Pousada-main\\QuintaYpua\\QuintaYpua.csproj",
+      "projectPath": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\QuintaYpua.csproj",
       "packagesPath": "C:\\Users\\Alunos\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Alunos\\Downloads\\sistema_pousada_integrado\\pousada\\Pousada-main\\QuintaYpua\\obj\\",
+      "outputPath": "C:\\Users\\Alunos\\OneDrive\\Documentos\\vittinho\\Pousada\\QuintaYpua\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Alunos\\AppData\\Roaming\\NuGet\\NuGet.Config"
