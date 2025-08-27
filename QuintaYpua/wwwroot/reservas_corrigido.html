@@ -581,12 +581,6 @@ if (!localStorage.getItem('novosClientes') || JSON.parse(localStorage.getItem('n
 // Carregar clientes ao carregar a página
 window.addEventListener('DOMContentLoaded', exibirClientesComPagamento);
 
-// Filtros de busca
-document.addEventListener('DOMContentLoaded', function() {
-  const filtroNome = document.getElementById('filtroNome');
-  const filtroCheckin = document.getElementById('filtroCheckin');
-  
-  if (filtroNome) {
     filtroNome.addEventListener('input', filtrarReservas);
   }
   

@@ -259,65 +259,14 @@
                 </div>
                 <div class="tab-pane fade" id="pag-credito" role="tabpanel" aria-labelledby="tab-credito">
                   <input type="hidden" id="formaPagamentoCredito" value="Cartão de Crédito">
-                  <span class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-credit-card-2-front" style="font-size:1.5rem;color:#7c2f2f;"></i> Cartão de crédito (até 12x sem juros).</span>
+                  <span class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-credit-card-2-front" style="font-size:1.5rem;color:#7c2f2f;"></i> Cartão de crédito (até 12x sem juros).
+                  </span>
+                  <button type="button" class="btn btn-outline-primary btn-sm" id="btnConfigCartaoCredito">Configurar Cartão</button>
                 </div>
                 <div class="tab-pane fade" id="pag-debito" role="tabpanel" aria-labelledby="tab-debito">
                   <input type="hidden" id="formaPagamentoDebito" value="Cartão de Débito">
                   <span class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-credit-card" style="font-size:1.5rem;color:#a16207;"></i> Cartão de débito.</span>
-<!-- Modal Cartão Crédito -->
-<div class="modal fade" id="modalCartao" tabindex="-1" aria-labelledby="modalCartaoLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalCartaoLabel">Dados do Cartão</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <div class="row g-2">
-          <div class="col-md-6">
-            <label class="form-label mb-1">Número do Cartão</label>
-            <input type="text" class="form-control" id="modalCartaoNumero" maxlength="19" placeholder="0000 0000 0000 0000">
-          </div>
-          <div class="col-md-3">
-            <label class="form-label mb-1">Validade</label>
-            <input type="text" class="form-control" id="modalCartaoValidade" maxlength="5" placeholder="MM/AA">
-          </div>
-          <div class="col-md-3">
-            <label class="form-label mb-1">CVV</label>
-            <input type="text" class="form-control" id="modalCartaoCVV" maxlength="4" placeholder="CVV">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label mb-1">Nome impresso no cartão</label>
-            <input type="text" class="form-control" id="modalCartaoNome" maxlength="40" placeholder="Nome completo">
-          </div>
-          <div class="col-md-6" id="grupoParcelas" style="display:none;">
-            <label class="form-label mb-1">Parcelas</label>
-            <select class="form-select" id="modalCartaoParcelas">
-              <option value="1">1x sem juros</option>
-              <option value="2">2x sem juros</option>
-              <option value="3">3x sem juros</option>
-              <option value="4">4x sem juros</option>
-              <option value="5">5x sem juros</option>
-              <option value="6">6x sem juros</option>
-              <option value="7">7x sem juros</option>
-              <option value="8">8x sem juros</option>
-              <option value="9">9x sem juros</option>
-              <option value="10">10x sem juros</option>
-              <option value="11">11x sem juros</option>
-              <option value="12">12x sem juros</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Cartão Débito -->
-
                 </div>
               </div>
             </div>
@@ -541,6 +490,41 @@
       }
     });
     
+    // Função para abrir modal do cartão
+function abrirModalCartao(tipo) {
+  const modalCartao = document.getElementById('modalCartao');
+  const modalLabel = document.getElementById('modalCartaoLabel');
+  const grupoParcelas = document.getElementById('grupoParcelas');
+  
+  if (modalLabel) {
+    modalLabel.textContent = tipo === 'credito' ? 'Dados do Cartão de Crédito' : 'Dados do Cartão de Débito';
+  }
+  
+  if (grupoParcelas) {
+    grupoParcelas.style.display = tipo === 'credito' ? 'block' : 'none';
+  }
+  
+  dadosCartao.tipo = tipo;
+  
+  const modalInstance = new bootstrap.Modal(modalCartao);
+  modalInstance.show();
+}
+
+// Event listeners para os botões de configurar cartão
+document.addEventListener('DOMContentLoaded', function() {
+  const btnConfigCredito = document.getElementById('btnConfigCartaoCredito');
+  if (btnConfigCredito) {
+    btnConfigCredito.addEventListener('click', function() {
+      abrirModalCartao('credito');
+    });
+  }
+  const btnConfigDebito = document.getElementById('btnConfigCartaoDebito');
+  if (btnConfigDebito) {
+    btnConfigDebito.addEventListener('click', function() {
+      abrirModalCartao('debito');
+    });
+  }
+});
   </script>
 </body>
 </html>
